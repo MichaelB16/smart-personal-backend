@@ -30,6 +30,6 @@ class StudentService
     }
 
     public function delete($id) {
-        return $this->student->delete($id);
+        return $this->student->where(['id' => $id])->delete();
     }
 }
