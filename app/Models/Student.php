@@ -19,6 +19,7 @@ class Student extends Model
         'phone',
         'weight',
         'height',
+        'price',
         'age',
         'date_of_birth'
     ];

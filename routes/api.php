@@ -13,9 +13,10 @@ Route::controller(AuthController::class)->prefix('v1')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    // students
     Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
+    Route::group(['prefix' => 'students'],function () {
+        Route::get('summary', [StudentController::class, 'summary']);
+    });
 })->middleware('auth:sanctum');
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');

@@ -26,6 +26,7 @@ class StudentRequest extends FormRequest
             'email' => 'required|email',
             'age' => 'required',
             'phone' => 'required',
+            'price' => 'required',
             'height' => 'required',
             'weight' => 'required',
             'date_of_birth' => 'nullable|date',

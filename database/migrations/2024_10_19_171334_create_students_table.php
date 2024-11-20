@@ -19,9 +19,10 @@ return new class extends Migration
             $table->double('weight');
             $table->double('height');
             $table->integer('age');
+            $table->decimal('price', 10, 2);
             $table->date('date_of_birth')->nullable();
             $table->string('password')->nullable();
-            $table->string('access',1)->default('0')->comment('1|0 Sim|Não acesso de aluno');
+            $table->string('access', 1)->default(0)->comment('1|0 Sim|Não acesso de aluno');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -17,6 +17,21 @@ class StudentService
             $query->where('name', 'like', '%' . $search . '%');
         })->paginate(limit_pagination());
     }
+
+
+    public  function getSummary():array
+    {
+        return [
+            'total_students' => $this->getCounts()
+        ];
+    }
+
+
+    protected function getCounts()
+    {
+        return $this->student->count();
+    }
+
     public function getById($id) {
         return $this->student->find($id);
     }
