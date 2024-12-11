@@ -19,10 +19,11 @@ class StudentService
     }
 
 
-    public  function getSummary():array
+    public function getSummary()
     {
         return [
-            'total_students' => $this->getCounts()
+            'total_students' => $this->getCounts(),
+            'total_price' => $this->getTotalPrice()
         ];
     }
 
@@ -30,6 +31,10 @@ class StudentService
     protected function getCounts()
     {
         return $this->student->count();
+    }
+
+    protected function getTotalPrice () {
+        return $this->student->sum('price');
     }
 
     public function getById($id) {

@@ -6,7 +6,6 @@ use App\Http\Requests\StudentRequest;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Js;
 
 class StudentController extends Controller
 {
