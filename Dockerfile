@@ -17,10 +17,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
+
 
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage /var/www/bootstrap/cache
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 9000
 
