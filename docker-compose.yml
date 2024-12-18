@@ -9,7 +9,7 @@ services:
         networks:
             - laravel_network
         depends_on:
-            - mysql-app
+            - postgres_app
     nginx:
         image: nginx:latest
         container_name: laravel_nginx
@@ -22,22 +22,21 @@ services:
             - laravel_network
         depends_on:
             - backend_app
-    mysql-app:
-        image: mysql:8.0
-        container_name: laravel_mysql
+    postgres_app:
+        image: postgres:15
+        container_name: laravel_postgres
         ports:
-            - "3307:3306"
+            - "5432:5432"
         volumes:
-            - mysql_data:/var/lib/mysql
+            - postgres_data:/var/lib/postgresql/data
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_USER: ${DB_USERNAME}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
         networks:
             - laravel_network
 volumes:
-    mysql_data:
+    postgres_data:
 # Define redes para os containers
 networks:
     # Cria uma rede chamada app-network do tipo bridge para interligar os containers

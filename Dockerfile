@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip
+    unzip \
+    libpq-dev
 
-RUN docker-php-ext-install pdo_mysql gd
+RUN docker-php-ext-install pdo_mysql gd pdo_pgsql pgsql
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
