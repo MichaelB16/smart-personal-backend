@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,11 @@ Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::prefix('students')->name('students.')->group(function () {
         Route::apiResource('', StudentController::class)->except(['create', 'edit']);
-        Route::get('summary', [StudentController::class, 'summary']);
     });
+
+    Route::prefix('dashboard')->group(function() {
+        Route::get('summary', [DashboardController::class, 'summary']);
+    });
+
 })->middleware('auth:sanctum');
 

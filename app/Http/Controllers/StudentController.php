@@ -22,13 +22,6 @@ class StudentController extends Controller
         return response()->json($result);
     }
 
-    public function summary(): JsonResponse
-    {
-        $result = $this->studentService->getSummary();
-
-        return response()->json($result);
-    }
-
 
     public function store(StudentRequest $request): JsonResponse
     {
