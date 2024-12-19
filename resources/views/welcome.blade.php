@@ -43,7 +43,7 @@
         <h1>API</h1>
         <hr />
         <div>
-            <img src='https://ifit-front.onrender.com/assets/logo.986683a9.svg' alt="logo" />
+            <img src='https://ifit-front.onrender.com/assets/logo.82fa9532.svg' alt="logo" />
         </div>
     </main>
 </body>
