@@ -24,7 +24,6 @@ class StudentRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email',
-            'age' => 'required',
             'phone' => 'required',
             'price' => 'required',
             'height' => 'required',

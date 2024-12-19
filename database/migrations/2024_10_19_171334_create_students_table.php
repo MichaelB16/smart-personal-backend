@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('phone');
             $table->double('weight');
             $table->double('height');
-            $table->integer('age');
             $table->decimal('price', 10, 2);
             $table->date('date_of_birth')->nullable();
             $table->string('password')->nullable();

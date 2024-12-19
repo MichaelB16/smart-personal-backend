@@ -12,7 +12,7 @@ class Student extends Model
 {
     use HasFactory, Notifiable, HasApiTokens, HasByUserScope;
 
-    protected  $table = 'students';
+    protected $table = 'students';
     protected $fillable = [
         'name',
         'email',
@@ -20,7 +20,6 @@ class Student extends Model
         'weight',
         'height',
         'price',
-        'age',
         'date_of_birth'
     ];
 }
