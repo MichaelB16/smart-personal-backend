@@ -35,6 +35,8 @@
 
         .card-header>img {
             height: 35px;
+            margin-top: 12px;
+            margin-left: -12px;
         }
 
         .card-content {
@@ -68,8 +70,7 @@
         <div class="card-header px-16">
             <img
                 src="{{ asset('img/logo.png') }}"
-                alt="{{config('app.name')}}"
-                style="left: -12px;position: relative;top: 11px;" />
+                alt="{{config('app.name')}}" />
         </div>
         <div class="card-content" style="height: 500px">
             <div class="text">
