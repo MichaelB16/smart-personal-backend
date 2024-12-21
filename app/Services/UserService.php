@@ -14,6 +14,10 @@ class UserService {
         $this->user = $user;
     }
 
+    public function find($id) {
+        return $this->user->find($id);
+    }
+
     public function updateOrCreate(array $data): User {
         return $this->user->updateOrCreate([
             'email' => $data['email']
@@ -25,14 +29,15 @@ class UserService {
             'sub' => $data['sub'],
         ]);
     }
+
     public function getBySub($sub)
     {
-        return $this->user->where('sub', $sub)->firstOrFail();
+        return $this->user->where(['sub' => $sub])->first();
     }
 
     public function getByEmail($email)
     {
-        return $this->user->where('email', $email)->firstOrFail();
+        return $this->user->where(['email' => $email])->first();
     }
 
 }

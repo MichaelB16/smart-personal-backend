@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -23,37 +24,26 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        if (!Auth::guard('web')->attempt($credentials)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+
+        if(Auth::guard('web')->attempt($credentials)) {
+            $user = $this->userService->getByEmail($credentials['email']);
+            return response()->json([
+                'user' => $user,
+                'token' => $user->createToken('auth_token')->plainTextToken,
+                'token_type' => 'Bearer'
+            ]);
         }
 
-        $user = $this->userService->getByEmail($credentials['email']);
-
-        return response()->json([
-            'user' => Auth::user(),
-            'token' => $user->createToken('auth_token')->plainTextToken,
-            'token_type' => 'Bearer'
-        ]);
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
 
-    public function sendEmail()
+    public function sendEmailWelcome($user)
     {
         try {
-            Mail::to('michael.sousa@terceirizados.farmarcas.com.br')->send(new SendMailUser([
-                'username' => 'Michael',
-                'pin' => '9845236',
-                'url' => 'www.google.com'
-            ]));
-            return 'success';
+            Mail::to($user->email)->send(new SendMailUser(['username' => $user->name]));
         } catch (Exception $e) {
             return $e->getMessage();
         }
-
-        /* return view('template',[
-            'username' => 'Michael',
-            'pin'=> '12345',
-            'url' => 'www.google.com'
-        ]); */
     }
 
     public function loginGoogle(Request $request): JsonResponse
@@ -65,14 +55,24 @@ class AuthController extends Controller
             'picture' => 'nullable|string',
         ]);
 
+
+        $isNew = !$this->userService->getByEmail($data['email']);
+
         $user = $this->userService->updateOrCreate([
             ...$data,
             'is_google' => 1
         ]);
 
+
+
         if (Auth::guard('web')->loginUsingId($user->id)) {
+
+            if($isNew) {
+                $this->sendEmailWelcome($user);
+            }
+
             return response()->json([
-                'user' => Auth::user(),
+                'user' => $user,
                 'token' => $user->createToken('auth_token')->plainTextToken,
                 'token_type' => 'Bearer'
             ]);

@@ -29,7 +29,7 @@ class SendMailUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Mail User',
+            subject: 'Bem vindo!',
         );
     }
 
@@ -39,7 +39,7 @@ class SendMailUser extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'template',
+            view: 'mail.welcome',
             with: $this->data
         );
     }
