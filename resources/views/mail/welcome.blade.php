@@ -14,9 +14,14 @@
             font-family: "Roboto", sans-serif;
         }
 
-        .px-16 {
+        .px-24 {
             padding-left: 24px;
             padding-right: 24px;
+        }
+
+        .px-12 {
+            padding-left: 12px;
+            padding-right: 12px;
         }
 
         .card {
@@ -35,8 +40,7 @@
 
         .card-header>img {
             height: 35px;
-            margin-top: 12px;
-            margin-left: -12px;
+            margin-top: 14px;
         }
 
         .card-content {
@@ -67,21 +71,21 @@
 
 <body>
     <div class="card">
-        <div class="card-header px-16">
+        <div class="card-header px-12">
             <img
                 src="{{ asset('img/logo.png') }}"
                 alt="{{config('app.name')}}" />
         </div>
         <div class="card-content" style="height: 500px">
             <div class="text">
-                <p class="text-title px-16">Bem vindo ao {{config('app.name')}} </p>
-                <p style="font-size: 14px; line-height: 23px" class="px-16">
+                <p class="text-title px-24">Bem vindo ao {{config('app.name')}} </p>
+                <p style="font-size: 14px; line-height: 23px" class="px-24">
                     Olá, {{$data['username']}}.
                 </p>
-                <p style="font-size: 14px; line-height: 23px" class="px-16">
+                <p style="font-size: 14px; line-height: 23px" class="px-24">
                     Bem-vindo à nossa plataforma! Aqui, você poderá organizar e gerenciar todas as atividades do seu dia a dia como personal trainer de forma simples e eficiente.
                 </p>
-                <div class="px-16" style="height: 300px;">
+                <div class="px-24" style="height: 300px;">
                     <b>Rumo ao nosso objetivo, com foco e determinação!</b>
                     <img
                         style="height: 100%; margin-top:8px; width: 100%;"
