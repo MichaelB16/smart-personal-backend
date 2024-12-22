@@ -115,7 +115,7 @@
                     <i style="font-size: 14px; line-height: 23px">
                         Clique no botão para prosseguir com a definição da sua senha.
                     </i>
-                    <a href="{{ $url }}" class="btn">
+                    <a href="{{ $url }}" style="color:#fff;" class="btn">
                         Clique Aqui
                     </a>
                 </div>
