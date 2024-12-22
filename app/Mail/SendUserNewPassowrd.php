@@ -9,14 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMailUser extends Mailable
+class SendUserNewPassowrd extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(protected array $data) {}
+    public function __construct(protected array $data)
+    {
+        //
+    }
 
     /**
      * Get the message envelope.
@@ -24,7 +27,7 @@ class SendMailUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bem-vindo!',
+            subject: 'Bem-vindo! Vamos seguir para a definição da sua senha.',
         );
     }
 
@@ -34,7 +37,7 @@ class SendMailUser extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.welcome',
+            view: 'mail.new_password',
             with: $this->data
         );
     }

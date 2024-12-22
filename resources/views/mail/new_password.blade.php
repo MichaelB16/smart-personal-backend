@@ -66,6 +66,23 @@
             line-height: 24px;
             font-weight: 700;
         }
+
+        .btn {
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 45px;
+            font-weight: 700;
+            background-color: #0f0a38;
+            color: #fff;
+            white-space: nowrap;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            width: 161px;
+            display: block;
+            height: 48px;
+            margin-top: 0.6em;
+        }
     </style>
 </head>
 
@@ -76,7 +93,7 @@
                 src="{{ asset('img/logo.png') }}"
                 alt="{{config('app.name')}}" />
         </div>
-        <div class="card-content" style="height: 500px">
+        <div class="card-content" style="height: 590px">
             <div class="text">
                 <p class="text-title px-24">Bem vindo ao {{config('app.name')}} </p>
                 <p style="font-size: 14px; line-height: 23px" class="px-24">
@@ -86,15 +103,24 @@
                     Bem-vindo à nossa plataforma! Aqui, você poderá organizar e gerenciar todas as atividades do seu dia a dia como personal trainer de forma simples e eficiente.
                 </p>
                 <div class="px-24" style="height: 300px;">
-                    <i>Rumo ao nosso objetivo, com foco e determinação!</i>
+                    <i>
+                        Rumo ao nosso objetivo, com foco e determinação!
+                    </i>
                     <img
                         style="height: 100%; margin-top:8px; width: 100%;"
                         alt=banner
                         src="{{ asset('img/banner-welcome.png') }}" />
                 </div>
+                <div class="px-24" style="margin-top: 3em;">
+                    <i style="font-size: 14px; line-height: 23px">
+                        Clique no botão para prosseguir com a definição da sua senha.
+                    </i>
+                    <a href="{{ $url }}" class="btn">
+                        Clique Aqui
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </body>
-
 </html>
