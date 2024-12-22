@@ -2,19 +2,28 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::controller(AuthController::class)->prefix('v1')->group(function () {
-    Route::post('/login', 'login');
-    Route::post('/oauth/google', 'loginGoogle');
+
+Route::prefix('v1')->group(function() {
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/login', 'login');
+        Route::post('/oauth/google', 'loginGoogle');
+    });
+
+    Route::post('add/personal', [UserController::class, 'store']);
+
+    Route::prefix('new_password')->group(function () {
+        Route::post('verify/{token}', [NewPasswordController::class, 'checkToken']);
+        Route::put('update/{id}', [NewPasswordController::class, 'updatePassword']);
+    });
 });
 
-Route::prefix('v1')->group(function () {
-    Route::post('add/personal', [UserController::class, 'store']);
-});
+
 
 Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

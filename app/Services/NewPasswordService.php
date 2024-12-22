@@ -20,6 +20,11 @@ class NewPasswordService
 
     public function checkToken(string $token)
     {
-        return $this->newPassword->where(['token' => $token])->exists();
+        return $this->newPassword->where(['token' => $token])->with(['user'])->first();
+    }
+
+    public function deleteToken($user_id)
+    {
+        return $this->newPassword->where(['user_id' => $user_id])->delete();
     }
 }
