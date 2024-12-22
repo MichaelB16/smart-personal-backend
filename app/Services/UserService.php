@@ -18,6 +18,19 @@ class UserService {
         return $this->user->find($id);
     }
 
+    public function create($data) {
+        return $this->user->create($data);
+    }
+
+
+    public function update($id, $data) {
+        return $this->user->where(['id' => $id])->update($data);
+    }
+
+    public function delete($id) {
+        return $this->user->where(['id' => $id])->delete();
+    }
+
     public function updateOrCreate(array $data): User {
         return $this->user->updateOrCreate([
             'email' => $data['email']

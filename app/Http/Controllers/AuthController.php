@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Mail\SendMailUser;
 use App\Models\User;
 use App\Services\UserService;
