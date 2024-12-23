@@ -10,7 +10,6 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -38,7 +37,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Unauthorized'], 401);
     }
 
-    public function sendEmailWelcome($user)
+    protected function sendEmailWelcome($user)
     {
         try {
             Mail::to($user->email)->send(new SendMailUser(['username' => $user->name]));
@@ -63,8 +62,6 @@ class AuthController extends Controller
             ...$data,
             'is_google' => 1
         ]);
-
-
 
         if (Auth::guard('web')->loginUsingId($user->id)) {
 

@@ -42,7 +42,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function sendEmailNewPassword($user, $token)
+    protected function sendEmailNewPassword($user, $token)
     {
         try {
             Mail::to($user->email)->send(new SendUserNewPassowrd([
