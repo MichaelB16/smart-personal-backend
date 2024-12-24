@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+use function Illuminate\Log\log;
+
 class AuthController extends Controller
 {
 
@@ -23,7 +25,6 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string'
         ]);
-
 
         if(Auth::guard('web')->attempt($credentials)) {
             $user = $this->userService->getByEmail($credentials['email']);
@@ -63,8 +64,10 @@ class AuthController extends Controller
             'is_google' => 1
         ]);
 
-        if (Auth::guard('web')->loginUsingId($user->id)) {
+        log('check',$user->toArray());
 
+        if (Auth::guard('web')->loginUsingId($user->id)) {
+            log('chegou no if');
             if($isNew) {
                 $this->sendEmailWelcome($user);
             }

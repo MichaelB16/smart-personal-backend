@@ -33,7 +33,8 @@ class UserService {
 
     public function updateOrCreate(array $data): User {
         return $this->user->updateOrCreate([
-            'email' => $data['email']
+            'sub' => $data['sub'],
+            'email' => $data['email'],
         ],[
             'name' => $data['name'],
             'email' => $data['email'],
