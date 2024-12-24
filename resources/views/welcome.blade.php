@@ -43,7 +43,9 @@
         <h1>API</h1>
         <hr />
         <div>
-            <img src='https://ifit-front.onrender.com/assets/logo.82fa9532.svg' alt="logo" />
+            <img
+                src="{{ asset('img/logo.png') }}"
+                alt="{{config('app.name')}}" />
         </div>
     </main>
 </body>
