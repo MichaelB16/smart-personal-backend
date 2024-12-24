@@ -16,7 +16,11 @@ class NewPasswordController extends Controller
     {
         $result = $this->newPasswordService->checkToken($token);
 
-        return response()->json($result);
+        if ($result && $result->id) {
+            return response()->json($result);
+        }
+
+        return response()->json(['error' => 'token_not_found', 'message' => 'token not found!'], 404);
     }
 
     public function updatePassword(Request $request, $id)
