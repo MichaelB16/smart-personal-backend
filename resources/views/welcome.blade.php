@@ -28,9 +28,11 @@
             align-items: center;
             flex-direction: column;
             color: #0f0a38;
-            gap: 20px;
+            gap: 10px;
         }
-
+        .logo {
+            height: 50px;
+        }
         hr {
             border: 1px dashed #ececec;
             width: 500px;
@@ -44,6 +46,7 @@
         <hr />
         <div>
             <img
+                class="logo"
                 src="{{ asset('img/logo.png') }}"
                 alt="{{config('app.name')}}" />
         </div>
