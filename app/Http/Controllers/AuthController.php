@@ -56,7 +56,6 @@ class AuthController extends Controller
             'picture' => 'nullable|string',
         ]);
 
-
         $isNew = !$this->userService->getByEmail($data['email']);
 
         $user = $this->userService->updateOrCreate([
@@ -64,10 +63,7 @@ class AuthController extends Controller
             'is_google' => 1
         ]);
 
-        log('check',$user->toArray());
-
         if (Auth::guard('web')->loginUsingId($user->id)) {
-            log('chegou no if');
             if($isNew) {
                 $this->sendEmailWelcome($user);
             }
