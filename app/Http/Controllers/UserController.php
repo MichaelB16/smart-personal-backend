@@ -31,7 +31,7 @@ class UserController extends Controller
 
         $user = $this->userService->create($data);
 
-        if ($user->id) {
+        if ($user && $user->id) {
             $new_password = $this->newPasswordService->create(['user_id' => $user->id]);
             $this->sendEmailNewPassword($user, $new_password->token);
         }
