@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gd \
     pdo_pgsql \
     pgsql && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copia o Composer da imagem oficial para o container
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
