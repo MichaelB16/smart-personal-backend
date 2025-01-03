@@ -9,14 +9,12 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function __construct(protected StudentService $studentService)
-    {
-
-    }
+    public function __construct(protected StudentService $studentService) {}
 
     public function index(Request $request): JsonResponse
     {
         $search = $request->get('search') ?? '';
+
         $result = $this->studentService->getAll($search);
 
         return response()->json($result);
