@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Models\Student;
+use Carbon\Carbon;
 
 class StudentService
 {
@@ -46,7 +47,10 @@ class StudentService
     }
 
     public function update($id, $data) {
-        return $this->student->where(['id' => $id])->update($data);
+        return $this->student->where(['id' => $id])->update([
+            ...$data,
+            'date_of_birth' => Carbon::parse($data['date_of_birth'])->format('Y-m-d')
+        ]);
     }
 
     public function delete($id) {
