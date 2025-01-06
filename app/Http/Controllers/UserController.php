@@ -29,6 +29,10 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
+        if ($this->userService->getByEmail($data['email'])) {
+            return response()->json(['error' => 'user_exists', 'message' => 'user exists!'], 422);
+        }
+
         $user = $this->userService->create($data);
 
         if ($user && $user->id) {
@@ -46,7 +50,7 @@ class UserController extends Controller
     {
         try {
             Mail::to($user->email)->send(new SendUserNewPassowrd([
-                'url' => env('APP_URL_FRONT').'/new/password/'.$token,
+                'url' => env('APP_URL_FRONT') . '/new/password/' . $token,
                 'username' => $user->name,
             ]));
         } catch (Exception $e) {
