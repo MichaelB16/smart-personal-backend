@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,8 @@ Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
+
+    Route::apiResource('message', MessageController::class)->except(['create', 'edit', 'show']);
 
     Route::apiResource('user', UserController::class)->except(['create', 'edit']);
 
