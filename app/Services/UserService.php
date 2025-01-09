@@ -2,45 +2,38 @@
 
 namespace App\Services;
 
-
 use App\Models\User;
+use App\Repositories\UserRepository;
 
 class UserService
 {
-
-    protected $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
+    public function __construct(protected UserRepository $userRepository, protected User $user) {}
 
     public function find($id)
     {
-        return $this->user->find($id);
+        return $this->userRepository->find($id);
     }
 
     public function create($data)
     {
-        return $this->user->create($data);
+        return $this->userRepository->create($data);
     }
-
 
     public function update($id, $data)
     {
-        return $this->user->where(['id' => $id])->update($data);
+        return $this->userRepository->update($id, $data);
     }
 
     public function delete($id)
     {
-        return $this->user->where(['id' => $id])->delete();
+        return $this->userRepository->delete($id);
     }
 
-    public function updateOrCreate(array $data): User
+    public function updateOrCreate(array $data)
     {
-        return $this->user->updateOrCreate(
+        return $this->userRepository->updateOrCreate(
             [
-                'email' => $data['email'],
+                'email' => $data['email']
             ],
             [
                 'name' => $data['name'],
