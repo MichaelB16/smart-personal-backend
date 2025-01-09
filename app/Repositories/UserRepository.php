@@ -13,6 +13,6 @@ class UserRepository extends BaseRepository
 
     public function updateOrCreate(array $where, array $data)
     {
-        $this->user->updateOrCreate($where, $data);
+       return $this->user->updateOrCreate($where, $data);
     }
 }
