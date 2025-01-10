@@ -23,4 +23,9 @@ class Student extends Model
         'price',
         'date_of_birth'
     ];
+
+    public function training()
+    {
+        return $this->hasOne(Training::class, 'student_id', 'id')->select(['training', 'student_id']);
+    }
 }

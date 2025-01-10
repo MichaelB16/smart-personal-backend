@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +39,9 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
 
-    Route::prefix('generate')->group(function () {
-        Route::post('training', [StudentController::class, 'generateTraining']);
+    Route::prefix('training')->group(function () {
+        Route::post('generate', [TrainingController::class, 'generateTraining']);
+        Route::post('save', [TrainingController::class, 'saveTraining']);
     });
 
     Route::apiResource('message', MessageController::class)->except(['create', 'edit', 'show']);

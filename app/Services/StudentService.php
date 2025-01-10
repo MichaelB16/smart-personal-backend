@@ -12,7 +12,7 @@ class StudentService
 
     public function getAll($search = '')
     {
-        return $this->student->where(function ($query) use ($search) {
+        return $this->student->with(['training'])->where(function ($query) use ($search) {
             $query->where('name', 'like', '%' . $search . '%');
         })->paginate(limit_pagination());
     }
@@ -40,7 +40,7 @@ class StudentService
         return $this->studentRepository->find($id);
     }
 
-    public function create($data)
+    public function create(array $data)
     {
         return $this->studentRepository->create($data);
     }
