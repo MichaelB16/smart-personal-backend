@@ -17,6 +17,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/oauth/google', 'loginGoogle');
     });
 
+    Route::post('test', [StudentController::class, 'generateTrainer']);
+
     Route::post('add/personal', [UserController::class, 'store']);
 
     Route::prefix('forgot_password')->group(function () {
@@ -35,6 +37,10 @@ Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
+
+    Route::prefix('generate')->group(function () {
+        Route::post('training', [StudentController::class, 'generateTraining']);
+    });
 
     Route::apiResource('message', MessageController::class)->except(['create', 'edit', 'show']);
 
