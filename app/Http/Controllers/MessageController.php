@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
 use App\Services\MessageService;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,9 @@ class MessageController extends Controller
         return response()->json($result);
     }
 
-    public function store(Request $request)
+    public function store(MessageRequest $request)
     {
-        $data = $request->validate([
-            'message_pre_class' => 'required',
-            'message_pre_expiry' => 'required'
-        ]);
+        $data = $request->validated();
 
         $message = $this->messageService->createOrUpdateMessage($data);
 

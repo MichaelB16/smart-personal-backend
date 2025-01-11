@@ -9,7 +9,7 @@ return [
     | The title of your API documentation.
     |
     */
-    "title" => env("SWAGGER_TITLE", "Api Documentation"),
+    "title" => env("SWAGGER_TITLE", "API IPersonal"),
 
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ return [
     | The description of your API.
     |
     */
-    "description" => env("SWAGGER_DESCRIPTION", "Laravel autogenerate swagger"),
+    "description" => env("SWAGGER_DESCRIPTION", "api ipersonal docs"),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     | The email associated with your API documentation.
     |
     */
-    "email" => env("SWAGGER_EMAIL", "hussein4alaa@gmail.com"),
+    "email" => env("SWAGGER_EMAIL", "michaelbatistasousa@gmail.com"),
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ return [
     | The URL path for accessing your API documentation.
     |
     */
-    "url" => env("SWAGGER_URL", "swagger/documentation"),
+    "url" => env("SWAGGER_URL", "docs"),
 
     /*
     |--------------------------------------------------------------------------
@@ -129,10 +129,10 @@ return [
     */
     "versions" => [
         "all",
-        // "v1"
+        "v1"
     ],
 
-    "default" => "all",
+    "default" => "v1",
 
 
     /*

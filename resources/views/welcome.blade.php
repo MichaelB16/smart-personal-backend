@@ -66,7 +66,7 @@
             <img class="logo" src="{{ asset('img/logo.png') }}" alt="logo" />
         </div>
         <hr />
-        <a href='/swagger/documentation' class="btn">Doc</a>
+        <a href='/docs' class="btn">Doc</a>
     </main>
 </body>
 

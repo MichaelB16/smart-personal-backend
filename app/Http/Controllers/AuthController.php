@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginGoogleRequest;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Mail\SendMailUser;
 use App\Models\User;
@@ -19,32 +21,11 @@ class AuthController extends Controller
 
     public function __construct(protected  UserService $userService) {}
 
-    /**
-    * @OA\Post(
-    *      path="/v1/login",
-    *      operationId="Title",
-    *      tags={"Auth"},
-    *      summary="Login",
-    *      description="authentication",
-    *      @OA\RequestBody(
-    *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/Request")
-    *      ),
-    *      @OA\Response(
-    *          response=Response Code,
-    *          description="Response Message",
-    *       ),
-    *     )
-    */
-
-    public function login(Request $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string'
-        ]);
+        $credentials = $request->validated();
 
-        if(Auth::guard('web')->attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $user = $this->userService->getByEmail($credentials['email']);
             return response()->json([
                 'user' => $user,
@@ -65,32 +46,9 @@ class AuthController extends Controller
         }
     }
 
-    /**
-    * @OA\Post(
-    *      path="v1/oauth/google",
-    *      operationId="Title",
-    *      tags={"Tags"},
-    *      summary="login with google",
-    *      description="google oauth",
-    *      @OA\RequestBody(
-    *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/Request")
-    *      ),
-    *      @OA\Response(
-    *          response=Response Code,
-    *          description="Response Message",
-    *       ),
-    *     )
-    */
-
-    public function loginGoogle(Request $request): JsonResponse
+    public function loginGoogle(LoginGoogleRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'email' => 'required|email',
-            'name' => 'required',
-            'sub' => 'required|string',
-            'picture' => 'nullable|string',
-        ]);
+        $data = $request->validated();
 
         $isNew = !$this->userService->getByEmail($data['email']);
 
@@ -100,7 +58,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::guard('web')->loginUsingId($user->id)) {
-            if($isNew) {
+            if ($isNew) {
                 $this->sendEmailWelcome($user);
             }
 
