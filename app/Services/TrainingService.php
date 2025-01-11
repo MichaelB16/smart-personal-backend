@@ -6,7 +6,20 @@ use App\Models\Training;
 
 class TrainingService
 {
-    public function __construct(protected Training $training) {}
+    public function __construct(protected Training $training,  protected GeminiAiService $geminiAiService) {}
+
+    public function generateTraining(array $data)
+    {
+        $prompt = "Quero um JSON que representa um treino semanal para " . $data['objective'] . " " . $data['sex'] . " como um array de objetos, onde cada objeto contém o day (dia da semana), focus (grupos musculares principais, ex: 'Peito/Tríceps') e um array exercises com objetos contendo name (nome do exercício), repeat (repetições ou intervalo, ex: '8-12'), series (número de séries) e focus (músculo específico trabalhado, ex: 'Peitoral Maior').";
+
+        $response = $this->geminiAiService->sendMessage($prompt);
+
+        $json_string = trim(preg_replace('/^\`\`\`json\n|\n\`\`\`$/', '', $response));
+
+        $data = json_decode($json_string);
+
+        return $data;
+    }
 
     public function createTraining(array $data)
     {

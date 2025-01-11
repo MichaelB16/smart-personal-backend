@@ -29,26 +29,44 @@
             color: #0f0a38;
             gap: 10px;
         }
+
         .logo {
             height: 50px;
         }
+
         hr {
             border: 1px dashed #ececec;
             width: 500px;
+        }
+
+        .btn {
+            width: 150px;
+            background-color: #0f0a38;
+            color: #fff;
+            padding: 16px;
+            text-align: center;
+            border-radius: 100px;
+            text-decoration: none;
+        }
+
+        .content-flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #0f0a38;
         }
     </style>
 </head>
 
 <body class="font-sans">
     <main>
-        <h1>API</h1>
-        <hr />
-        <div>
-            <img
-                class="logo"
-                src="{{ asset('img/logo.png') }}"
-                alt="{{config('app.name')}}" />
+        <div class="content-flex">
+            <b>API - </b>
+            <img class="logo" src="{{ asset('img/logo.png') }}" alt="logo" />
         </div>
+        <hr />
+        <a href='/swagger/documentation' class="btn">Doc</a>
     </main>
 </body>
 
