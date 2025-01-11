@@ -19,6 +19,24 @@ class AuthController extends Controller
 
     public function __construct(protected  UserService $userService) {}
 
+    /**
+    * @OA\Post(
+    *      path="/v1/login",
+    *      operationId="Title",
+    *      tags={"Auth"},
+    *      summary="Login",
+    *      description="authentication",
+    *      @OA\RequestBody(
+    *          required=true,
+    *          @OA\JsonContent(ref="#/components/schemas/Request")
+    *      ),
+    *      @OA\Response(
+    *          response=Response Code,
+    *          description="Response Message",
+    *       ),
+    *     )
+    */
+
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
@@ -46,6 +64,24 @@ class AuthController extends Controller
             return $e->getMessage();
         }
     }
+
+    /**
+    * @OA\Post(
+    *      path="v1/oauth/google",
+    *      operationId="Title",
+    *      tags={"Tags"},
+    *      summary="login with google",
+    *      description="google oauth",
+    *      @OA\RequestBody(
+    *          required=true,
+    *          @OA\JsonContent(ref="#/components/schemas/Request")
+    *      ),
+    *      @OA\Response(
+    *          response=Response Code,
+    *          description="Response Message",
+    *       ),
+    *     )
+    */
 
     public function loginGoogle(Request $request): JsonResponse
     {

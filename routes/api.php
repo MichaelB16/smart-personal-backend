@@ -18,8 +18,6 @@ Route::prefix('v1')->group(function () {
         Route::post('/oauth/google', 'loginGoogle');
     });
 
-    Route::post('test', [StudentController::class, 'generateTrainer']);
-
     Route::post('add/personal', [UserController::class, 'store']);
 
     Route::prefix('forgot_password')->group(function () {
