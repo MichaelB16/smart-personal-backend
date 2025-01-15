@@ -145,7 +145,7 @@ return [
     */
     "servers" => [
         [
-            "url" => env("APP_URL", 'https://ipersonal-backend.onrender.com'),
+            "url" => env("APP_URL"),
             "description" => "localhost"
         ]
     ],
