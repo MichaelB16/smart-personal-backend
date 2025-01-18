@@ -6,7 +6,7 @@ use App\Http\Requests\MessageRequest;
 use App\Services\MessageService;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class MessagesController extends Controller
 {
     public function __construct(protected MessageService $messageService) {}
 

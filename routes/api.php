@@ -3,11 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\NewPasswordController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,7 +18,9 @@ Route::prefix('v1')->group(function () {
         Route::post('/oauth/google', 'loginGoogle');
     });
 
-    Route::post('personal/register', [UserController::class, 'store']);
+    Route::controller(UsersController::class)->group(function () {
+        Route::post('personal/register', 'store');
+    });
 
     Route::prefix('forgot_password')->group(function () {
         Route::post('verify', [ForgotPasswordController::class, 'forgotPassword']);
@@ -40,11 +42,11 @@ Route::prefix('v1')->group(function () {
         Route::post('save', [TrainingController::class, 'saveTraining']);
     });
 
-    Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
+    Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
 
-    Route::apiResource('messages', MessageController::class)->except(['create', 'edit', 'show']);
+    Route::apiResource('messages', MessagesController::class)->except(['create', 'edit', 'show']);
 
-    Route::apiResource('users', UserController::class)->except(['create', 'edit']);
+    Route::apiResource('users', UsersController::class)->except(['create', 'edit']);
 
     Route::prefix('dashboard')->group(function () {
         Route::get('summary', [DashboardController::class, 'summary']);

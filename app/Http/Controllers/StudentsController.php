@@ -7,7 +7,7 @@ use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class StudentsController extends Controller
 {
     public function __construct(protected StudentService $studentService) {}
 
