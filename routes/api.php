@@ -44,7 +44,7 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
 
-    Route::apiResource('messages', MessagesController::class)->except(['create', 'edit', 'show']);
+    Route::apiResource('messages', MessagesController::class)->only(['index', 'store']);
 
     Route::apiResource('users', UsersController::class)->except(['create', 'edit']);
 
