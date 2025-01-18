@@ -18,7 +18,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/oauth/google', 'loginGoogle');
     });
 
-    Route::post('add/personal', [UserController::class, 'store']);
+    Route::post('personal/register', [UserController::class, 'store']);
 
     Route::prefix('forgot_password')->group(function () {
         Route::post('verify', [ForgotPasswordController::class, 'forgotPassword']);
@@ -35,16 +35,16 @@ Route::prefix('v1')->group(function () {
 Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
-
     Route::prefix('training')->group(function () {
         Route::post('generate', [TrainingController::class, 'generateTraining']);
         Route::post('save', [TrainingController::class, 'saveTraining']);
     });
 
-    Route::apiResource('message', MessageController::class)->except(['create', 'edit', 'show']);
+    Route::apiResource('students', StudentController::class)->except(['create', 'edit']);
 
-    Route::apiResource('user', UserController::class)->except(['create', 'edit']);
+    Route::apiResource('messages', MessageController::class)->except(['create', 'edit', 'show']);
+
+    Route::apiResource('users', UserController::class)->except(['create', 'edit']);
 
     Route::prefix('dashboard')->group(function () {
         Route::get('summary', [DashboardController::class, 'summary']);
