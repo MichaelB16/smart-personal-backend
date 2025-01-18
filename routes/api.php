@@ -46,7 +46,7 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('messages', MessagesController::class)->only(['index', 'store']);
 
-    Route::apiResource('users', UsersController::class)->except(['create', 'edit']);
+    Route::apiResource('users', UsersController::class)->only(['destroy', 'update', 'show', 'store']);
 
     Route::prefix('dashboard')->group(function () {
         Route::get('summary', [DashboardController::class, 'summary']);

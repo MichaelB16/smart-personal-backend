@@ -22,23 +22,6 @@ class UsersController extends Controller
         //
     }
 
-    /**
-    * @OA\Post(
-    *      path="v1/users",
-    *      operationId="Title",
-    *      tags={"users"},
-    *      summary="add users",
-    *      description="register new users",
-    *      @OA\RequestBody(
-    *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/Request")
-    *      ),
-    *      @OA\Response(
-    *          response=Response Code,
-    *          description="Response Message",
-    *       ),
-    *     )
-    */
     public function store(UserRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -72,23 +55,6 @@ class UsersController extends Controller
         }
     }
 
-    /**
-    * @OA\Post(
-    *      path="v1/users/{id}",
-    *      operationId="user_id",
-    *      tags={"Tags"},
-    *      summary="find user",
-    *      description="get find user",
-    *      @OA\RequestBody(
-    *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/Request")
-    *      ),
-    *      @OA\Response(
-    *          response=Response Code,
-    *          description="Response Message",
-    *       ),
-    *     )
-    */
     public function show(string $id): JsonResponse
     {
         $result = $this->userService->find($id);
@@ -96,31 +62,6 @@ class UsersController extends Controller
         return response()->json($result);
     }
 
-    /**
-    * @OA\Put(
-    *      path="v1/users/{id}",
-    *      operationId="user_id",
-    *      tags={"Tags"},
-    *      summary="update user",
-    *      description="set update user",
-    *      @OA\Parameter(
-    *          description="user_id",
-    *          in="path",
-    *          name="id",
-    *          required=true,
-    *          @OA\Schema(type="int"),
-    *          @OA\Examples(example="int", value="1", summary="an int value"),
-    *      ),
-    *      @OA\RequestBody(
-    *          required=Parameter with example,
-    *          @OA\JsonContent(ref="#/components/schemas/path")
-    *      ),
-    *      @OA\Response(
-    *          response=int,
-    *          description="1",
-    *       ),
-    *     )
-    */
     public function update(StudentRequest $request, string $id)
     {
         $data = $request->validated();
@@ -133,9 +74,6 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id): JsonResponse
     {
         $result = $this->userService->delete($id);
