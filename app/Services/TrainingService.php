@@ -12,13 +12,9 @@ class TrainingService
     {
         $prompt = "Quero um JSON que representa um treino semanal para " . $data['objective'] . " " . $data['sex'] . " como um array de objetos, onde cada objeto contém o day (dia da semana), focus (grupos musculares principais, ex: 'Peito/Tríceps') e um array exercises com objetos contendo name (nome do exercício), repeat (repetições ou intervalo, ex: '8-12'), series (número de séries) e focus (músculo específico trabalhado, ex: 'Peitoral Maior').";
 
-        $response = $this->geminiAiService->sendMessage($prompt);
+        $response = $this->geminiAiService->sendMessage($prompt , 'json');
 
-        $json_string = trim(preg_replace('/^\`\`\`json\n|\n\`\`\`$/', '', $response));
-
-        $data = json_decode($json_string);
-
-        return $data;
+        return $response;
     }
 
     public function createTraining(array $data)

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DietController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\NewPasswordController;
@@ -40,6 +41,10 @@ Route::prefix('v1')->group(function () {
     Route::prefix('training')->group(function () {
         Route::post('generate', [TrainingController::class, 'generateTraining']);
         Route::post('save', [TrainingController::class, 'saveTraining']);
+    });
+
+    Route::prefix('diet')->group(function () {
+        Route::post('generate',[DietController::class,'generateDiet']);
     });
 
     Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
