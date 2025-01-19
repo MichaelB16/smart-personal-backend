@@ -12,7 +12,7 @@ class StudentService
 
     public function getAll($search = '')
     {
-        return $this->student->with(['training'])->where(function ($query) use ($search) {
+        return $this->student->with(['training', 'diet'])->where(function ($query) use ($search) {
             $query->where('name', 'like', '%' . $search . '%');
         })->paginate(limit_pagination());
     }

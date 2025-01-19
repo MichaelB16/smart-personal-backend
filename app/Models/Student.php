@@ -28,4 +28,9 @@ class Student extends Model
     {
         return $this->hasOne(Training::class, 'student_id', 'id')->select(['training', 'student_id']);
     }
+
+    public function diet()
+    {
+        return $this->hasOne(Diet::class, 'student_id', 'id')->select(['diet', 'student_id']);
+    }
 }
