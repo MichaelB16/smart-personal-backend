@@ -15,7 +15,7 @@ class DietService
         $objective = $data['objective'];
         $sex = $data['sex'];
         $value = $data['price'];
-        $restriction = $data['restriction'] ? 'e com restrições em '.$data['restriction'] : '';
+        $restriction = !empty($data['restriction']) ? 'e com restrições em '.$data['restriction'] : '';
 
         $prompt = 'criar uma dieta semanal com o objetivo de' . $objective . 'para uma pessoa do sexo ' . $sex . ' com um custo de até ' . $value . ' reais '. $restriction.' retorno um json array com dias e as refeicões as fazer dia com (day) e refeicões como (meals) e descricão como (description) na descrição crie tambem uma label para cada tipo de refeição exemplo (labe:Café da manhã)';
 
