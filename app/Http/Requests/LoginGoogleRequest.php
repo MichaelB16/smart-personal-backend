@@ -26,6 +26,7 @@ class LoginGoogleRequest extends FormRequest
             'name' => 'required',
             'sub' => 'required|string',
             'picture' => 'nullable|string',
+            'google_access_token' => 'nullable|string',
         ];
     }
 }

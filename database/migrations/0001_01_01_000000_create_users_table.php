@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('sub')->nullable();
             $table->integer('is_google')->default(0)->comment('1|0 sim|não');
+            $table->longText('google_access_token')->nullable();
             $table->string('type')->default('personal')->comment('student|personal|admin');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

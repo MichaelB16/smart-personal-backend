@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'type',
         'picture',
+        'google_access_token',
         'is_google',
         'sub',
         'password',

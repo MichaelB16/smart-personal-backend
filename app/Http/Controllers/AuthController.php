@@ -58,9 +58,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::guard('web')->loginUsingId($user->id)) {
-            if ($isNew) {
-                $this->sendEmailWelcome($user);
-            }
+            if ($isNew) $this->sendEmailWelcome($user);
 
             return response()->json([
                 'user' => $user,

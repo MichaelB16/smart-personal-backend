@@ -39,6 +39,7 @@ class UserService
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'is_google' => $data['is_google'],
+                'google_access_token' => $data['google_access_token'],
                 'picture' => $data['picture'],
                 'sub' => $data['sub'],
             ]
