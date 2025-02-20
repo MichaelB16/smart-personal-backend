@@ -65,8 +65,6 @@
             <b>API - </b>
             <img class="logo" src="{{ asset('img/logo.png') }}" alt="logo" />
         </div>
-        <hr />
-        <a href='/docs' class="btn">Doc</a>
     </main>
 </body>
 
