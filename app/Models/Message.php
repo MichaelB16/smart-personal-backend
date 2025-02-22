@@ -19,4 +19,8 @@ class Message extends Model
         'message_pre_expiry',
         'user_id'
     ];
+
+    protected $hidden = [
+        'user_id'
+    ];
 }

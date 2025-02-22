@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageRequest;
 use App\Services\MessageService;
-use Illuminate\Http\Request;
-
 class MessagesController extends Controller
 {
     public function __construct(protected MessageService $messageService) {}

@@ -10,7 +10,7 @@ class MessageService
 
     public function all()
     {
-        return $this->message->first();
+        return $this->message->select(['message_pre_class', 'message_pre_expiry'])->first();
     }
 
     public function createOrUpdateMessage(array $data)
