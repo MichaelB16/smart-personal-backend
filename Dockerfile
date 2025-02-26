@@ -1,25 +1,25 @@
-FROM php:8.3-fpm
+FROM php:8.3-fpm-alpine
 
 # Configura o diretório de trabalho
 WORKDIR /var/www/html
 
 # Instala dependências necessárias
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libicu-dev \
+RUN apk add --no-cache \
+    icu-libs icu-dev \
     git \
     curl \
+    libpng \
     libpng-dev \
-    libonig-dev \
+    oniguruma \
     libxml2-dev \
     unzip \
-    libpq-dev && \
+    postgresql-dev && \
     docker-php-ext-install \
     intl \
     pdo_mysql \
     gd \
     pdo_pgsql \
-    pgsql && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    pgsql
 
 # Copia o Composer da imagem oficial para o container
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
