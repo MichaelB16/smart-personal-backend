@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->string('password')->nullable();
             $table->string('access', 1)->default(0)->comment('1|0 Sim|Não acesso de aluno');
+            $table->string('active', 1)->default(0)->comment('1|0 Sim|Não esta ativo aluno');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
