@@ -10,6 +10,13 @@ class DietController extends Controller
 {
     public function __construct(protected DietService $dietService) {}
 
+    public function pdf($id)
+    {
+        $diet = $this->dietService->getDiet($id);
+
+        return view('pdf.diet', $diet);
+    }
+
     public function generateDiet(DietGenerateRequest $request)
     {
         $data = $request->validated();
