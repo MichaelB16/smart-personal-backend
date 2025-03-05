@@ -39,13 +39,14 @@ Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::prefix('training')->group(function () {
+        Route::get('pdf/{id}', [TrainingController::class, 'pdf']);
         Route::post('generate', [TrainingController::class, 'generateTraining']);
         Route::post('save', [TrainingController::class, 'saveTraining']);
     });
 
     Route::prefix('diet')->group(function () {
-        Route::post('generate',[DietController::class,'generateDiet']);
-        Route::post('save',[DietController::class,'saveDiet']);
+        Route::post('generate', [DietController::class, 'generateDiet']);
+        Route::post('save', [DietController::class, 'saveDiet']);
     });
 
     Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
