@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2effd954ce0be6217d1c1e3e480137a",
+    "content-hash": "c7a035604e21a3032c3c9a4d4020d814",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -859,16 +859,16 @@
         },
         {
             "name": "google-gemini-php/client",
-            "version": "1.0.15",
+            "version": "1.0.0-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google-gemini-php/client.git",
-                "reference": "6dca9a5e6a6de39b230fe4593a8d041efd02e34e"
+                "reference": "a53ff7233b087862d2b35510a9be0d62fd8d6fbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google-gemini-php/client/zipball/6dca9a5e6a6de39b230fe4593a8d041efd02e34e",
-                "reference": "6dca9a5e6a6de39b230fe4593a8d041efd02e34e",
+                "url": "https://api.github.com/repos/google-gemini-php/client/zipball/a53ff7233b087862d2b35510a9be0d62fd8d6fbd",
+                "reference": "a53ff7233b087862d2b35510a9be0d62fd8d6fbd",
                 "shasum": ""
             },
             "require": {
@@ -916,9 +916,9 @@
             ],
             "support": {
                 "issues": "https://github.com/google-gemini-php/client/issues",
-                "source": "https://github.com/google-gemini-php/client/tree/1.0.15"
+                "source": "https://github.com/google-gemini-php/client/tree/1.0.0-beta"
             },
-            "time": "2024-12-29T12:53:49+00:00"
+            "time": "2024-09-28T19:20:17+00:00"
         },
         {
             "name": "google-gemini-php/laravel",
@@ -8678,7 +8678,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "google-gemini-php/client": 10
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -8,6 +8,7 @@
         "php": "^8.3",
         "barryvdh/laravel-dompdf": "^3.1",
         "g4t/swagger": "^3.2",
+        "google-gemini-php/client": "v1.0.0-beta",
         "google-gemini-php/laravel": "^1.0",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",

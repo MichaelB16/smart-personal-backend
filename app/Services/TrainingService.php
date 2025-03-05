@@ -10,9 +10,14 @@ class TrainingService
 
     public function getTraining(int $id)
     {
-        return $this->training->join('students', function ($query) {
-            $query->on('students.id', '=', 'training.student_id');
-        })->with(['user'])->where(['student_id' => $id])->select('training.*', 'students.name as student_name')->first();
+        return $this->training
+            ->join('students', function ($query) {
+                $query->on('students.id', '=', 'training.student_id');
+            })
+            ->with(['user'])
+            ->where(['student_id' => $id])
+            ->select('training.*', 'students.name as student_name')
+            ->first();
     }
 
     public function generateTraining(array $data)

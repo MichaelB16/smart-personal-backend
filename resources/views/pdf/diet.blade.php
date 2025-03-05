@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Diet - PDF</title>
+    <title>Dieta - PDF</title>
     <!-- Fonts -->
     <style>
         * {
@@ -32,10 +32,6 @@
             width: 130px;
         }
 
-        .w-180 {
-            width: 180px;
-        }
-
         .w-550 {
             width: 550px;
         }
@@ -57,12 +53,12 @@
             font-size: 24px;
         }
 
-        .size-16 {
-            font-size: 16px;
-        }
-
         .size-20 {
             font-size: 20px;
+        }
+
+        .size-13 {
+            font-size: 13px;
         }
 
         .row {
@@ -107,7 +103,6 @@
 </head>
 
 
-
 <body class="font-sans">
     <main>
         <table>
@@ -138,22 +133,21 @@
                 </tr>
                 <tr class="bg-blue text-white">
                     <th class="bold text-left w-130">Dia</th>
-                    <th class="bold text-left">Exercícios</th>
+                    <th class="bold text-left">Refeições</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listTraining as $training)
+                @foreach ($listDiet as $diet)
                 <tr>
-                    <td class="text-left size-16">{{$training->day}}</td>
+                    <td class="text-left size-14">{{$diet->day}}</td>
                     <td>
                         <div class="d-flex w-550 flex-column gap">
-                            <b>{{$training->focus}}</b>
-                            @foreach ($training->exercises as $exercise)
+                            @foreach ($diet->meals as $meals)
                             <div class="row full-width">
-                                <span class="size-16 w-300">
-                                    {{$exercise->name}}
-                                </span>
-                                <small class="size-14"><i>{{$exercise->series}} x {{$exercise->repeat}}</i></small>
+                                <b class="size-13">
+                                    {{$meals->label}}:
+                                </b>
+                                <small class="size-13">{{$meals->description}}</i></small>
                             </div>
                             @endforeach
                         </div>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Training - PDF</title>
+    <title>Treino - PDF</title>
     <!-- Fonts -->
     <style>
         * {
@@ -32,16 +32,8 @@
             width: 130px;
         }
 
-        .w-180 {
-            width: 180px;
-        }
-
         .w-550 {
             width: 550px;
-        }
-
-        .h-100 {
-            height: 100px;
         }
 
         .bold {
@@ -105,8 +97,6 @@
         }
     </style>
 </head>
-
-
 
 <body class="font-sans">
     <main>

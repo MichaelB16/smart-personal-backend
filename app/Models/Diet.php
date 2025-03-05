@@ -13,4 +13,9 @@ class Diet extends Model
         'user_id',
         'student_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->select(['name', 'id']);
+    }
 }

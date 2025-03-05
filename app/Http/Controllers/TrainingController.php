@@ -16,21 +16,14 @@ class TrainingController extends Controller
     {
         $training = $this->trainingService->getTraining($id);
 
-        $filename = $training->student_name . '-treino.pdf';
-
-        $data = [
+        $pdf = Pdf::loadView('pdf.training', [
             'listTraining' => json_decode($training->training),
             'coach' => $training->user->name,
             'student' => $training->student_name,
             'logo' => null
-        ];
+        ])->output();
 
-        $pdf = Pdf::loadView('pdf.training', $data)->output();
-
-        return response($pdf, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="' . $filename . '"',
-        ]);
+        return response($pdf)->header('Content-Type', 'application/pdf');
     }
 
     public function generateTraining(TrainingGenerateRequest $request)

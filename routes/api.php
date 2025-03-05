@@ -45,6 +45,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('diet')->group(function () {
+        Route::get('pdf/{id}', [DietController::class, 'pdf']);
         Route::post('generate', [DietController::class, 'generateDiet']);
         Route::post('save', [DietController::class, 'saveDiet']);
     });

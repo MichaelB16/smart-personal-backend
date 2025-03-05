@@ -11,7 +11,14 @@ class DietService
 
     public function getDiet(int $id)
     {
-        return $this->diet->with(['user', 'student'])->where('student_id', $id)->first();
+        return $this->diet
+            ->join('students', function ($query) {
+                $query->on('students.id', '=', 'diet.student_id');
+            })
+            ->with(['user'])
+            ->where(['student_id' => $id])
+            ->select('diet.*', 'students.name as student_name')
+            ->first();
     }
 
     public function generate(array $data)
