@@ -21,6 +21,8 @@ class Student extends Model
         'weight',
         'height',
         'price',
+        'access',
+        'active',
         'date_of_birth'
     ];
 
