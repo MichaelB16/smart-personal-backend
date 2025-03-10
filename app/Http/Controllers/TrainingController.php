@@ -6,22 +6,26 @@ use App\Http\Requests\TrainingGenerateRequest;
 use App\Http\Requests\TrainingRequest;
 use App\Services\GeminiAiService;
 use App\Services\TrainingService;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Pdf\TrainingPdfService;
 
 class TrainingController extends Controller
 {
-    public function __construct(protected GeminiAiService $geminiAiService, protected TrainingService $trainingService) {}
+    public function __construct(
+        protected GeminiAiService $geminiAiService,
+        protected TrainingService $trainingService,
+        protected TrainingPdfService $trainingPdfService
+    ) {}
 
     public function pdf($id)
     {
         $training = $this->trainingService->getTraining($id);
 
-        $pdf = Pdf::loadView('pdf.training', [
+        $pdf = $this->trainingPdfService->generatePdf([
             'listTraining' => json_decode($training->training),
             'coach' => $training->user->name,
             'student' => $training->student_name,
             'logo' => null
-        ])->output();
+        ]);
 
         return response($pdf)->header('Content-Type', 'application/pdf');
     }
