@@ -29,24 +29,19 @@ class StudentService
     public function getSummary()
     {
         return [
-            'total_students' => $this->getCounts(),
-            'total_price' => $this->getTotalPrice()
+            'total_students' => $this->student->count(),
+            'total_price' => $this->student->sum('price')
         ];
     }
 
-    protected function getCounts()
-    {
-        return $this->student->count();
-    }
-
-    protected function getTotalPrice()
-    {
-        return $this->student->sum('price');
-    }
-
-    public function getById($id)
+    public function getById(int $id)
     {
         return $this->studentRepository->find($id);
+    }
+
+    public function getByEmail(string $email)
+    {
+        return $this->studentRepository->findByEmail($email);
     }
 
     public function create(array $data)
@@ -54,7 +49,7 @@ class StudentService
         $student = $this->studentRepository->create($data);
 
         $this->sendEmailStudentCreatedService->send([
-            'user_id' => $student->id,
+            'student_id' => $student->id,
             'email' => $data['email'],
             'username' => $data['name'],
         ]);
@@ -64,10 +59,16 @@ class StudentService
 
     public function update(int $id, array $data)
     {
-        return $this->studentRepository->update($id, [
-            ...$data,
-            'date_of_birth' => Carbon::parse($data['date_of_birth'])->format('Y-m-d')
-        ]);
+        if (optional($data)['date_of_birth']) {
+            $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
+        }
+
+        return $this->studentRepository->update($id, $data);
+    }
+
+    public function updateWithoutScope(int $id, array $data)
+    {
+        return $this->studentRepository->updateWithoutScope($id, $data);
     }
 
     public function delete(int $id)

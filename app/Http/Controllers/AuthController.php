@@ -4,32 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginGoogleRequest;
 use App\Http\Requests\LoginRequest;
-use App\Services\Mails\SendEmailWelcomeService;
-use App\Services\UserService;
+use App\Services\Login\LoginGoogleService;
+use App\Services\Login\LoginPersonalService;
+use App\Services\Login\LoginStudentService;
+use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
 
     public function __construct(
-        protected  UserService $userService,
-        protected SendEmailWelcomeService $sendEmailWelcomeService
+        protected StudentService $studentService,
+        protected LoginGoogleService $loginGoogleService,
+        protected LoginStudentService $loginStudentService,
+        protected LoginPersonalService $loginPersonalService,
     ) {}
 
     public function login(LoginRequest $request): JsonResponse
     {
         $credentials = $request->validated();
 
-        if (Auth::guard('web')->attempt($credentials)) {
-            $user = $this->userService->getByEmail($credentials['email']);
+        if ($this->studentService->getByEmail($credentials['email'])) {
+            return $this->studentLogin($credentials);
+        }
 
-            return response()->json([
-                'user' => $user,
-                'token' => $user->createToken('auth_token')->plainTextToken,
-                'token_type' => 'Bearer'
-            ]);
+        return $this->personalLogin($credentials);
+    }
+
+    protected function studentLogin(array $credentials)
+    {
+        $result = $this->loginStudentService->login($credentials);
+
+        if ($result) {
+            return response()->json($result);
+        }
+
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    protected function personalLogin(array $credentials)
+    {
+        $result = $this->loginPersonalService->login($credentials);
+
+        if ($result) {
+            return response()->json($result);
         }
 
         return response()->json(['message' => 'Unauthorized'], 401);
@@ -39,29 +58,10 @@ class AuthController extends Controller
     {
         $data = $request->validated();
 
-        $user = $this->userService->getByEmail($data['email']);
+        $result = $this->loginGoogleService->login($data);
 
-        $isNew = !$user;
-
-        $user = $this->userService->updateOrCreate([
-            ...$data,
-            'is_google' => 1
-        ]);
-
-        if (Auth::guard('web')->loginUsingId($user->id)) {
-
-            if ($isNew) {
-                $this->sendEmailWelcomeService->send([
-                    'email' => $user->email,
-                    'username' => $user->name,
-                ]);
-            }
-
-            return response()->json([
-                'user' => $user,
-                'token' => $user->createToken('auth_token')->plainTextToken,
-                'token_type' => 'Bearer'
-            ]);
+        if ($result) {
+            return response()->json($result);
         }
 
         return response()->json(['message' => 'Unauthorized'], 401);

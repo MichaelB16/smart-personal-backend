@@ -23,4 +23,9 @@ class NewPassword extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id')->select(['id', 'name']);
     }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'id', 'student_id')->select(['id', 'name']);
+    }
 }

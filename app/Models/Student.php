@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasByUserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, HasByUserScope;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $table = 'students';
 
@@ -34,5 +33,12 @@ class Student extends Model
     public function diet()
     {
         return $this->hasOne(Diet::class, 'student_id', 'id')->select(['diet', 'student_id']);
+    }
+
+    public function scopeByUser($query)
+    {
+        $id = optional(auth()->user())->id || null;
+
+        return $query->where('user_id', $id);
     }
 }
