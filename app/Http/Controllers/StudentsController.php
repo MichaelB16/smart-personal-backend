@@ -32,14 +32,15 @@ class StudentsController extends Controller
         ]);
     }
 
-    public function show($id): JsonResponse
+
+    public function show(int $id): JsonResponse
     {
         $result = $this->studentService->getById($id);
 
         return response()->json($result);
     }
 
-    public function update(StudentRequest $request, $id): JsonResponse
+    public function update(StudentRequest $request, int $id): JsonResponse
     {
         $data = $request->validated();
 
@@ -51,7 +52,7 @@ class StudentsController extends Controller
         ]);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $result = $this->studentService->delete($id);
 

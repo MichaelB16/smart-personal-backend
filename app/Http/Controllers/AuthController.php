@@ -4,22 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginGoogleRequest;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\UserRequest;
-use App\Mail\SendMailUser;
-use App\Models\User;
+use App\Services\Mails\SendEmailWelcomeService;
 use App\Services\UserService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-
-use function Illuminate\Log\log;
 
 class AuthController extends Controller
 {
 
-    public function __construct(protected  UserService $userService) {}
+    public function __construct(
+        protected  UserService $userService,
+        protected SendEmailWelcomeService $sendEmailWelcomeService
+    ) {}
 
     public function login(LoginRequest $request): JsonResponse
     {
@@ -27,6 +24,7 @@ class AuthController extends Controller
 
         if (Auth::guard('web')->attempt($credentials)) {
             $user = $this->userService->getByEmail($credentials['email']);
+
             return response()->json([
                 'user' => $user,
                 'token' => $user->createToken('auth_token')->plainTextToken,
@@ -37,20 +35,13 @@ class AuthController extends Controller
         return response()->json(['message' => 'Unauthorized'], 401);
     }
 
-    protected function sendEmailWelcome($user)
-    {
-        try {
-            Mail::to($user->email)->send(new SendMailUser(['username' => $user->name]));
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
     public function loginGoogle(LoginGoogleRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        $isNew = !$this->userService->getByEmail($data['email']);
+        $user = $this->userService->getByEmail($data['email']);
+
+        $isNew = !$user;
 
         $user = $this->userService->updateOrCreate([
             ...$data,
@@ -58,7 +49,13 @@ class AuthController extends Controller
         ]);
 
         if (Auth::guard('web')->loginUsingId($user->id)) {
-            if ($isNew) $this->sendEmailWelcome($user);
+
+            if ($isNew) {
+                $this->sendEmailWelcomeService->send([
+                    'email' => $user->email,
+                    'username' => $user->name,
+                ]);
+            }
 
             return response()->json([
                 'user' => $user,
@@ -74,6 +71,6 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
 
-        return response()->json(['message' => 'logout successfull']);
+        return response()->json(['message' => 'Logout successful']);
     }
 }

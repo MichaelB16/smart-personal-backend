@@ -4,23 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\UserRequest;
-use App\Mail\SendUserNewPassowrd;
-use App\Services\NewPasswordService;
+use App\Services\Mails\SendEmailNewPasswordService;
 use App\Services\UserService;
-use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
-    public function __construct(protected UserService $userService, protected NewPasswordService $newPasswordService) {}
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function __construct(
+        protected UserService $userService,
+        protected SendEmailNewPasswordService $sendEmailNewPasswordService
+    ) {}
+
 
     public function store(UserRequest $request): JsonResponse
     {
@@ -33,26 +27,17 @@ class UsersController extends Controller
         $user = $this->userService->create($data);
 
         if ($user && $user->id) {
-            $new_password = $this->newPasswordService->create(['user_id' => $user->id]);
-            $this->sendEmailNewPassword($user, $new_password->token);
+            $this->sendEmailNewPasswordService->send([
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'username' => $user->name,
+            ]);
         }
 
         return response()->json([
             'message' => 'User created successfully.',
             'data' => $user
         ]);
-    }
-
-    protected function sendEmailNewPassword($user, $token)
-    {
-        try {
-            Mail::to($user->email)->send(new SendUserNewPassowrd([
-                'url' => env('APP_URL_FRONT') . '/new/password/' . $token,
-                'username' => $user->name,
-            ]));
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
     }
 
     public function show(string $id): JsonResponse
