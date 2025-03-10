@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DietGenerateRequest;
 use App\Http\Requests\DietRequest;
 use App\Services\DietService;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Pdf\DietPdfService;
 
 class DietController extends Controller
 {
-    public function __construct(protected DietService $dietService) {}
+    public function __construct(protected DietService $dietService, protected DietPdfService $dietPdfService) {}
 
     public function pdf($id)
     {
         $diet = $this->dietService->getDiet($id);
 
-        $pdf = Pdf::loadView('pdf.diet', [
+        $pdf = $this->dietPdfService->generatePdf([
             'listDiet' => json_decode($diet->diet),
             'coach' => $diet->user->name,
             'student' => $diet->student_name,
             'logo' => null
-        ])->output();
+        ]);
 
         return response($pdf)->header('Content-Type', 'application/pdf');
     }
