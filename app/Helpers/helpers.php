@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 if (!function_exists('limit_pagination')) {
