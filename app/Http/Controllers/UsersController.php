@@ -21,7 +21,10 @@ class UsersController extends Controller
         $data = $request->validated();
 
         if ($this->userService->getByEmail($data['email'])) {
-            return response()->json(['error' => 'user_exists', 'message' => 'user exists!'], 422);
+            return response()->json([
+                'error' => 'user_exists',
+                'message' => 'user exists!'
+            ], 422);
         }
 
         $user = $this->userService->create($data);

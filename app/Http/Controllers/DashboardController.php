@@ -11,6 +11,7 @@ class DashboardController extends Controller
     public function summary()
     {
         $result = $this->dashboardService->getSummary();
+
         return response()->json($result);
     }
 }
