@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\login;
+namespace App\Services;
 
 use App\Contracts\LoginInterface;
 use App\Services\UserService;

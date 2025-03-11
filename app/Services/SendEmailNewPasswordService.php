@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\mails;
+namespace App\Services;
 
 use App\Contracts\SendEmailInterface;
 use App\Jobs\SendNewPasswordEmail;
