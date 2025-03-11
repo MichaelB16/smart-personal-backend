@@ -14,6 +14,6 @@ class ByUserScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         $column = $model->getTable() . '.user_id';
-        $builder->where($column, auth('sanctum')->user()->id);
+        $builder->where($column, get_user_id());
     }
 }

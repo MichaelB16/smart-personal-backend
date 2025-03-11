@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Diet;
 use App\Models\Training;
+use Carbon\Carbon;
 
 class DashboardService
 {
@@ -18,17 +19,33 @@ class DashboardService
 
     public function getStudentDashboard()
     {
-        $where = ['student_id' => auth('sanctum')->user()->id];
+        $resultTraining = $this->training
+            ->where(['student_id' => get_user_id()])
+            ->first(['training']);
 
-        $resultTraining = $this->training->where($where)->first(['training']);
-        $resultDiet = $this->diet->where($where)->first(['diet']);
+        $resultDiet = $this->diet
+            ->where(['student_id' => get_user_id()])
+            ->first(['diet']);
+
+        Carbon::setLocale('pt_BR');
+        $now = Carbon::now();
+
+        $day = $now->isoFormat('dddd');
 
         $diet = optional($resultDiet)->diet ? json_decode($resultDiet->diet) : [];
         $training = optional($resultTraining)->training ? json_decode($resultTraining->training) : [];
 
+        $trainingToday = array_filter($training, function ($item) use ($day) {
+            return strtolower($item->day) === strtolower($day);
+        });
+
+        $dietToday = array_filter($diet, function ($item) use ($day) {
+            return strtolower($item->day) === strtolower($day);
+        });
+
         return [
-            'today_diet' => [],
-            'today_training' => [],
+            'today_diet' => $dietToday,
+            'today_training' => $trainingToday,
             'weekly_diet' => $diet,
             'weekly_training' =>  $training,
         ];

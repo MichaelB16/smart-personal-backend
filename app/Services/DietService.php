@@ -44,7 +44,7 @@ class DietService
             [
                 'diet' => $data['diet'],
                 'student_id' => $data['student_id'],
-                'user_id' => auth('sanctum')->user()->id,
+                'user_id' => get_user_id(),
             ]
         );
     }

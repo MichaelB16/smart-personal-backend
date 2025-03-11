@@ -8,7 +8,7 @@ class StudentRepository extends BaseRepository
 {
     public function __construct(protected Student $student)
     {
-        if (auth('sanctum')->user()) {
+        if (get_user_id()) {
             $student = $student->byUser()->first() ?? $student;
         }
 

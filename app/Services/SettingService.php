@@ -47,7 +47,7 @@ class SettingService
 
         return [
             [
-                'label' => 'Dashboard',
+                'label' => 'Área do Aluno',
                 'icon' => 'mdi-speedometer',
                 'to' => $prefix . 'dashboard',
             ]

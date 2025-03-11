@@ -37,7 +37,7 @@ class Student extends Authenticatable
 
     public function scopeByUser($query)
     {
-        $id = optional(auth('sanctum')->user())->id || null;
+        $id = get_user_id() || null;
 
         return $query->where('user_id', $id);
     }
