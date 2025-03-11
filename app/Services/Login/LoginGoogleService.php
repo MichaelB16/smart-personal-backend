@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Login;
 
 use App\Contracts\LoginInterface;
-use App\Services\SendEmailWelcomeService;
+use App\Services\Mails\SendEmailWelcomeService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 

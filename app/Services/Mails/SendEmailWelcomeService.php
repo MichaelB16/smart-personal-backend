@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Services\Mails;
 
 use App\Contracts\SendEmailInterface;
 use App\Jobs\SendWelcomeEmail;

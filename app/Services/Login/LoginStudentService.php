@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Login;
 
 use App\Contracts\LoginInterface;
 use App\Services\StudentService;
