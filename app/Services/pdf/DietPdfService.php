@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Pdf;
+namespace App\Services\pdf;
 
 use App\Contracts\PdfInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
