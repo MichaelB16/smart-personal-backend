@@ -66,6 +66,21 @@
             line-height: 24px;
             font-weight: 700;
         }
+
+        .footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 44px;
+        }
+
+        .btn {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px;
+            background-color: #0f0a38;
+            border-radius: 6px;
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -76,14 +91,14 @@
                 src="{{ asset('img/logo.png') }}"
                 alt="{{config('app.name')}}" />
         </div>
-        <div class="card-content" style="height: 500px">
+        <div class="card-content" style="height: 550px">
             <div class="text">
                 <p class="text-title px-24">Bem vindo ao {{config('app.name')}} </p>
                 <p style="font-size: 14px; line-height: 23px" class="px-24">
                     Olá, <b>{{$username}}</b>.
                 </p>
                 <p style="font-size: 14px; line-height: 23px" class="px-24">
-                    Bem-vindo à nossa plataforma! Aqui, você poderá organizar e gerenciar todas as atividades do seu dia a dia como personal trainer de forma simples e eficiente.
+                    Bem-vindo à nossa plataforma! Aqui, você encontra treinos personalizados, dietas equilibradas e muito mais para transformar sua rotina e alcançar seus objetivos
                 </p>
                 <div class="px-24" style="height: 300px;">
                     <i>Rumo ao nosso objetivo, com foco e determinação!</i>
@@ -91,6 +106,9 @@
                         style="height: 100%; margin-top:8px; width: 100%;"
                         alt=banner
                         src="{{ asset('img/banner-welcome.png') }}" />
+                </div>
+                <div class="px-24 footer">
+                    <a class="btn" href="{{ $url }}">Criar sua senha</a>
                 </div>
             </div>
         </div>

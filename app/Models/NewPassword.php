@@ -15,6 +15,7 @@ class NewPassword extends Model
 
     protected $fillable = [
         'user_id',
+        'student_id',
         'token'
     ];
 
