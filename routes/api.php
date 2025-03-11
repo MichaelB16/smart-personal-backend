@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardStudentController;
 use App\Http\Controllers\DietController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MessagesController;
@@ -63,5 +64,6 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('dashboard')->group(function () {
         Route::get('summary', [DashboardController::class, 'summary']);
+        Route::get('students', [DashboardStudentController::class, 'index']);
     });
 })->middleware('auth:sanctum');
