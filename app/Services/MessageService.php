@@ -17,7 +17,7 @@ class MessageService
     {
         return $this->message->updateOrCreate(
             [
-                'user_id' => auth()->id()
+                'user_id' => auth('sanctum')->user()->id
             ],
             [
                 ...$data

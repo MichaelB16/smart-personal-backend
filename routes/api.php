@@ -9,6 +9,7 @@ use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,6 +38,10 @@ Route::prefix('v1')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [SettingController::class, 'index']);
+    });
 
     Route::prefix('training')->group(function () {
         Route::get('pdf/{id}', [TrainingController::class, 'pdf']);

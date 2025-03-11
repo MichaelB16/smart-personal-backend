@@ -37,6 +37,7 @@ class LoginGoogleService implements LoginInterface
             return [
                 'user' => $user,
                 'token' => $user->createToken('auth_token')->plainTextToken,
+                'type' => 'personal',
                 'token_type' => 'Bearer'
             ];
         }

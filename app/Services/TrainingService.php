@@ -38,7 +38,7 @@ class TrainingService
             [
                 'training' => $data['training'],
                 'student_id' => $data['student_id'],
-                'user_id' => auth()->id(),
+                'user_id' => auth('sanctum')->user()->id,
             ]
         );
     }
