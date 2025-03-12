@@ -33,37 +33,35 @@ Route::prefix('v1')->group(function () {
         Route::post('verify/{token}', [NewPasswordController::class, 'checkToken']);
         Route::put('update/{id}', [NewPasswordController::class, 'updatePassword']);
     });
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('logout', [AuthController::class, 'logout']);
+
+        Route::prefix('setting')->group(function () {
+            Route::get('/', [SettingController::class, 'index']);
+        });
+
+        Route::prefix('training')->group(function () {
+            Route::get('pdf/{id}', [TrainingController::class, 'pdf']);
+            Route::post('generate', [TrainingController::class, 'generateTraining']);
+            Route::post('save', [TrainingController::class, 'saveTraining']);
+        });
+
+        Route::prefix('diet')->group(function () {
+            Route::get('pdf/{id}', [DietController::class, 'pdf']);
+            Route::post('generate', [DietController::class, 'generateDiet']);
+            Route::post('save', [DietController::class, 'saveDiet']);
+        });
+
+        Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
+
+        Route::apiResource('messages', MessagesController::class)->only(['index', 'store']);
+
+        Route::apiResource('users', UsersController::class)->only(['destroy', 'update', 'show', 'store']);
+
+        Route::prefix('dashboard')->group(function () {
+            Route::get('summary', [DashboardController::class, 'summary']);
+            Route::get('students', [DashboardStudentController::class, 'index']);
+        });
+    });
 });
-
-
-
-Route::prefix('v1')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
-
-    Route::prefix('setting')->group(function () {
-        Route::get('/', [SettingController::class, 'index']);
-    });
-
-    Route::prefix('training')->group(function () {
-        Route::get('pdf/{id}', [TrainingController::class, 'pdf']);
-        Route::post('generate', [TrainingController::class, 'generateTraining']);
-        Route::post('save', [TrainingController::class, 'saveTraining']);
-    });
-
-    Route::prefix('diet')->group(function () {
-        Route::get('pdf/{id}', [DietController::class, 'pdf']);
-        Route::post('generate', [DietController::class, 'generateDiet']);
-        Route::post('save', [DietController::class, 'saveDiet']);
-    });
-
-    Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
-
-    Route::apiResource('messages', MessagesController::class)->only(['index', 'store']);
-
-    Route::apiResource('users', UsersController::class)->only(['destroy', 'update', 'show', 'store']);
-
-    Route::prefix('dashboard')->group(function () {
-        Route::get('summary', [DashboardController::class, 'summary']);
-        Route::get('students', [DashboardStudentController::class, 'index']);
-    });
-})->middleware('auth:sanctum');
