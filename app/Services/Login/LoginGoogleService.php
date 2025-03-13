@@ -14,7 +14,7 @@ class LoginGoogleService implements LoginInterface
         protected SendEmailWelcomeService $sendEmailWelcomeService
     ) {}
 
-    public function login(array $data)
+    public function login(array $data): ?array
     {
         $user = $this->userService->getByEmail($data['email']);
 

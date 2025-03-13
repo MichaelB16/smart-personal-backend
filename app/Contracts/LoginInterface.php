@@ -4,5 +4,5 @@ namespace App\Contracts;
 
 interface LoginInterface
 {
-    public function login(array $credentials);
+    public function login(array $credentials): ?array;
 }

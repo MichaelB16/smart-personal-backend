@@ -10,7 +10,7 @@ class LoginPersonalService implements LoginInterface
 {
     public function __construct(protected UserService $userService) {}
 
-    public function login(array $credentials)
+    public function login(array $credentials): ?array
     {
         if (Auth::guard('web')->attempt($credentials)) {
             $user = $this->userService->getByEmail($credentials['email']);

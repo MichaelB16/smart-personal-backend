@@ -25,33 +25,17 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        if ($this->studentService->getByEmail($credentials['email'])) {
-            return $this->studentLogin($credentials);
+        $student = $this->studentService->getByEmail($credentials['email']);
+
+        $service = $student ? $this->loginStudentService : $this->loginPersonalService;
+
+        $result = $service->login($credentials);
+
+        if (is_null($result)) {
+            return $this->unauthorizedResponse();
         }
 
-        return $this->personalLogin($credentials);
-    }
-
-    protected function studentLogin(array $credentials)
-    {
-        $result = $this->loginStudentService->login($credentials);
-
-        if ($result) {
-            return response()->json($result);
-        }
-
-        return response()->json(['message' => 'Unauthorized'], 401);
-    }
-
-    protected function personalLogin(array $credentials)
-    {
-        $result = $this->loginPersonalService->login($credentials);
-
-        if ($result) {
-            return response()->json($result);
-        }
-
-        return response()->json(['message' => 'Unauthorized'], 401);
+        return response()->json($result);
     }
 
     public function loginGoogle(LoginGoogleRequest $request): JsonResponse
@@ -60,10 +44,15 @@ class AuthController extends Controller
 
         $result = $this->loginGoogleService->login($data);
 
-        if ($result) {
-            return response()->json($result);
+        if (is_null($result)) {
+            return $this->unauthorizedResponse();
         }
 
+        return response()->json($result);
+    }
+
+    private function unauthorizedResponse(): JsonResponse
+    {
         return response()->json(['message' => 'Unauthorized'], 401);
     }
 

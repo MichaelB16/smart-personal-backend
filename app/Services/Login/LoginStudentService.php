@@ -10,7 +10,7 @@ class LoginStudentService implements LoginInterface
 {
     public function __construct(protected StudentService $studentService) {}
 
-    public function login(array $credentials)
+    public function login(array $credentials): ?array
     {
         if (Auth::guard('students')->attempt($credentials)) {
             $student = $this->studentService->getByEmail($credentials['email']);
