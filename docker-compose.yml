@@ -10,6 +10,18 @@ services:
             - laravel_network
         depends_on:
             - postgres_app
+    queue_worker:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel_queue
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - laravel_network
+        depends_on:
+            - postgres_app
+        command: php artisan queue:work
     nginx:
         image: nginx:alpine
         container_name: laravel_nginx
