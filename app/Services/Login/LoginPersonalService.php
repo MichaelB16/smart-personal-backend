@@ -16,7 +16,10 @@ class LoginPersonalService implements LoginInterface
             $user = $this->userService->getByEmail($credentials['email']);
 
             return [
-                'user' => $user,
+                'user' => [
+                    ...$user->toArray(),
+                    'type' => 'personal',
+                ],
                 'type' => 'personal',
                 'token' => $user->createToken('personal_auth_token')->plainTextToken,
                 'token_type' => 'Bearer'

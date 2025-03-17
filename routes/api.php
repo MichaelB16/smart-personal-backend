@@ -37,10 +37,6 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
 
-        Route::prefix('setting')->group(function () {
-            Route::get('/', [SettingController::class, 'index']);
-        });
-
         Route::prefix('training')->group(function () {
             Route::get('pdf/{id}', [TrainingController::class, 'pdf']);
             Route::post('generate', [TrainingController::class, 'generateTraining']);
@@ -52,6 +48,8 @@ Route::prefix('v1')->group(function () {
             Route::post('generate', [DietController::class, 'generateDiet']);
             Route::post('save', [DietController::class, 'saveDiet']);
         });
+
+        Route::apiResource('settings', SettingController::class)->only(['index', 'store']);
 
         Route::apiResource('students', StudentsController::class)->except(['create', 'edit']);
 

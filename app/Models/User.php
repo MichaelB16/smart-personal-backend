@@ -25,6 +25,8 @@ class User extends Authenticatable
         'google_access_token',
         'is_google',
         'sub',
+        'phone',
+        'logo',
         'password',
     ];
 

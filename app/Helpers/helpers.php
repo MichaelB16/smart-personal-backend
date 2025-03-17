@@ -23,3 +23,25 @@ if (!function_exists('get_uuid')) {
         return (string) Str::uuid();
     }
 }
+
+if (!function_exists('uploadFile')) {
+    function uploadFile($file, $filename = '')
+    {
+        if ($file) {
+            $folder_name = get_user_id() . '_folder';
+            $extension = $file->getClientOriginalExtension();
+            $name = $filename . now()->timestamp . '.' . $extension;
+            $path = $file->storeAs($folder_name, $name);
+            return $path;
+        }
+        return null;
+    }
+}
+
+if (!function_exists('get_file_path')) {
+    function get_file_path($path)
+    {
+        $host = Request()->getSchemeAndHttpHost();
+        return $path ? $host . '/storage/' . $path : '';
+    }
+}

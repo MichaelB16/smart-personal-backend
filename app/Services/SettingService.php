@@ -4,53 +4,29 @@ namespace App\Services;
 
 class SettingService
 {
+    public function __construct(protected UserService $userService) {}
+
     public function getSetting()
     {
         $isPersonal = optional(auth('sanctum')->user())->type === 'personal';
 
+        $result = $this->userService->find(auth('sanctum')->user()->id);
+
         return [
-            'menu' => $isPersonal ? $this->getMenuPersonal() : $this->getMenuStudent()
+            'user' => [
+                'name' => $result->name,
+                'email' => $result->email,
+                'phone' => $result->phone,
+                'logo' => $result->logo ? get_file_path($result->logo) : '',
+            ],
+            'menu' => $isPersonal ? get_menu_personal() : get_menu_student()
         ];
     }
 
-    protected function getMenuPersonal()
+    public function setConfiguration(array $data)
     {
-        $prefix = '/personal/';
+        $id = auth('sanctum')->user()->id;
 
-        return [
-            [
-                'label' => 'Dashboard',
-                'icon' => 'mdi-speedometer',
-                'to' => $prefix . 'dashboard',
-            ],
-            [
-                'label' => 'Alunos',
-                'icon' => 'mdi-account-group-outline',
-                'to' => $prefix . 'students',
-            ],
-            [
-                'label' => 'Agenda',
-                'icon' => 'mdi-calendar-outline',
-                'to' => $prefix . 'calendar',
-            ],
-            [
-                'label' => 'Mensagens',
-                'icon' => 'mdi-message-outline',
-                'to' => $prefix . 'message',
-            ]
-        ];
-    }
-
-    protected function getMenuStudent()
-    {
-        $prefix = '/student/';
-
-        return [
-            [
-                'label' => 'Área do Aluno',
-                'icon' => 'mdi-speedometer',
-                'to' => $prefix . 'dashboard',
-            ]
-        ];
+        return $this->userService->update($id, $data);
     }
 }

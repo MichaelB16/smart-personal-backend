@@ -16,7 +16,10 @@ class LoginStudentService implements LoginInterface
             $student = $this->studentService->getByEmail($credentials['email']);
 
             return [
-                'user' => $student,
+                'user' => [
+                    ...$student->toArray(),
+                    'type' => 'student',
+                ],
                 'type' => 'student',
                 'token' => $student->createToken('student_auth_token')->plainTextToken,
                 'token_type' => 'Bearer'
