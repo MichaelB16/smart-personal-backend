@@ -46,7 +46,10 @@ class StudentService
 
     public function create(array $data)
     {
-        $student = $this->studentRepository->create($data);
+        $student = $this->studentRepository->create([
+            ...$data,
+            'user_id' => get_user_id(),
+        ]);
 
         $this->sendEmailStudentCreatedService->send([
             'student_id' => $student->id,
@@ -63,7 +66,10 @@ class StudentService
             $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->format('Y-m-d');
         }
 
-        return $this->studentRepository->update($id, $data);
+        return $this->studentRepository->update($id, [
+            ...$data,
+            'user_id' => get_user_id(),
+        ]);
     }
 
     public function updateWithoutScope(int $id, array $data)

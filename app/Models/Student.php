@@ -22,7 +22,8 @@ class Student extends Authenticatable
         'price',
         'access',
         'active',
-        'date_of_birth'
+        'date_of_birth',
+        'user_id'
     ];
 
     public function training()

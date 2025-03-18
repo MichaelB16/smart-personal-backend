@@ -38,6 +38,19 @@ if (!function_exists('uploadFile')) {
     }
 }
 
+if (!function_exists('get_file_to_pdf')) {
+    function get_file_to_pdf($file)
+    {
+        if ($file) {
+            $path = public_path('storage/' . $file);
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $base64 = base64_encode(file_get_contents($path));
+            return 'data:image/' . $type . ';base64,' . $base64;
+        }
+        return null;
+    }
+}
+
 if (!function_exists('get_file_path')) {
     function get_file_path($path)
     {

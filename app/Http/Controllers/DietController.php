@@ -6,20 +6,22 @@ use App\Http\Requests\DietGenerateRequest;
 use App\Http\Requests\DietRequest;
 use App\Services\DietService;
 use App\Services\Pdf\DietPdfService;
+use App\Services\UserService;
 
 class DietController extends Controller
 {
-    public function __construct(protected DietService $dietService, protected DietPdfService $dietPdfService) {}
+    public function __construct(protected DietService $dietService, protected DietPdfService $dietPdfService, protected UserService $userService) {}
 
-    public function pdf($id)
+    public function pdf($student_id)
     {
-        $diet = $this->dietService->getDiet($id);
+        $user = $this->userService->find(get_user_id());
+        $diet = $this->dietService->getDiet($student_id);
 
         $pdf = $this->dietPdfService->generatePdf([
             'listDiet' => json_decode($diet->diet),
             'coach' => $diet->user->name,
             'student' => $diet->student_name,
-            'logo' => null
+            'logo' => get_file_to_pdf($user->logo)
         ]);
 
         return response($pdf)->header('Content-Type', 'application/pdf');

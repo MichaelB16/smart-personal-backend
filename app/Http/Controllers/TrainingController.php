@@ -7,25 +7,30 @@ use App\Http\Requests\TrainingRequest;
 use App\Services\GeminiAiService;
 use App\Services\TrainingService;
 use App\Services\Pdf\TrainingPdfService;
+use App\Services\UserService;
 
 class TrainingController extends Controller
 {
     public function __construct(
         protected GeminiAiService $geminiAiService,
         protected TrainingService $trainingService,
+        protected UserService $userService,
         protected TrainingPdfService $trainingPdfService
     ) {}
 
-    public function pdf($id)
+    public function pdf($student_id)
     {
-        $training = $this->trainingService->getTraining($id);
+        $user = $this->userService->find(get_user_id());
+        $training = $this->trainingService->getTraining($student_id);
 
-        $pdf = $this->trainingPdfService->generatePdf([
+        $params = [
             'listTraining' => json_decode($training->training),
             'coach' => $training->user->name,
             'student' => $training->student_name,
-            'logo' => null
-        ]);
+            'logo' => get_file_to_pdf($user->logo),
+        ];
+
+        $pdf = $this->trainingPdfService->generatePdf($params);
 
         return response($pdf)->header('Content-Type', 'application/pdf');
     }
