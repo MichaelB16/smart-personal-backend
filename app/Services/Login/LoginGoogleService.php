@@ -16,9 +16,7 @@ class LoginGoogleService implements LoginInterface
 
     public function login(array $data): ?array
     {
-        $user = $this->userService->getByEmail($data['email']);
-
-        $isNew = !$user;
+        $isNew = !$this->userService->getByEmail($data['email']);
 
         $user = $this->userService->updateOrCreate([
             ...$data,
@@ -26,7 +24,6 @@ class LoginGoogleService implements LoginInterface
         ]);
 
         if (Auth::guard('web')->loginUsingId($user->id)) {
-
             if ($isNew) {
                 $this->sendEmailWelcomeService->send([
                     'email' => $user->email,
