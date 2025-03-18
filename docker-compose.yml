@@ -22,6 +22,8 @@ services:
         depends_on:
             - postgres_app
         command: php artisan queue:work
+        environment:
+            - APP_ENV=${APP_ENV}
     nginx:
         image: nginx:alpine
         container_name: laravel_nginx
