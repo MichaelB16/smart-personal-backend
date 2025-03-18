@@ -4,20 +4,22 @@ namespace App\Services;
 
 class SettingService
 {
-    public function __construct(protected UserService $userService) {}
+    public function __construct(protected UserService $userService, protected StudentService $studentService) {}
 
     public function getSetting()
     {
         $isPersonal = optional(auth('sanctum')->user())->type === 'personal';
 
-        $result = $this->userService->find(auth('sanctum')->user()->id);
+        $service = $isPersonal ? $this->userService : $this->studentService;
+
+        $result = $service->find(get_user_id());
 
         return [
             'user' => [
                 'name' => $result->name,
                 'email' => $result->email,
                 'phone' => $result->phone,
-                'logo' => $result->logo ? get_file_path($result->logo) : '',
+                'logo' => optional($result)->logo ? get_file_path($result->logo) : '',
             ],
             'menu' => $isPersonal ? get_menu_personal() : get_menu_student()
         ];

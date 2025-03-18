@@ -35,7 +35,7 @@ class NewPasswordController extends Controller
     {
         $data = $request->validate(['password' => 'required']);
 
-        $student = $this->studentService->getById($id);
+        $student = $this->studentService->find($id);
 
         $params = [
             'password' => Hash::make($data['password'])

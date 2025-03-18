@@ -35,7 +35,7 @@ class StudentsController extends Controller
 
     public function show(int $id): JsonResponse
     {
-        $result = $this->studentService->getById($id);
+        $result = $this->studentService->find($id);
 
         return response()->json($result);
     }

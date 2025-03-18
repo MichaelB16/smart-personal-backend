@@ -34,7 +34,7 @@ class StudentService
         ];
     }
 
-    public function getById(int $id)
+    public function find(int $id)
     {
         return $this->studentRepository->find($id);
     }
