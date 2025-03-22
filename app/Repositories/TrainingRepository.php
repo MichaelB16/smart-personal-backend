@@ -26,7 +26,7 @@ class TrainingRepository extends BaseRepository implements TrainingRepositoryInt
 
     public function updateOrCreate(array $data)
     {
-        return $this->training->create(
+        return $this->training->updateOrCreate(
             [
                 'student_id' => $data['student_id']
             ],
