@@ -21,7 +21,6 @@ class Student extends Authenticatable
         'height',
         'price',
         'access',
-        'active',
         'date_of_birth',
         'user_id'
     ];

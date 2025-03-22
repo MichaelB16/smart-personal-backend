@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
-class UserRepository extends BaseRepository
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     public function __construct(protected User $user)
     {
@@ -13,6 +14,17 @@ class UserRepository extends BaseRepository
 
     public function updateOrCreate(array $where, array $data)
     {
-       return $this->user->updateOrCreate($where, $data);
+        return $this->user->updateOrCreate($where, $data);
+    }
+
+
+    public function getBySub($sub)
+    {
+        return $this->user->where(['sub' => $sub])->first();
+    }
+
+    public function getByEmail($email)
+    {
+        return $this->user->where(['email' => $email])->first();
     }
 }

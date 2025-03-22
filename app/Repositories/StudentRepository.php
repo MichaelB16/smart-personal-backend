@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Contracts\Repositories\StudentRepositoryInterface;
 use App\Models\Student;
 
-class StudentRepository extends BaseRepository
+class StudentRepository extends BaseRepository implements StudentRepositoryInterface
 {
     public function __construct(protected Student $student)
     {
@@ -15,13 +16,31 @@ class StudentRepository extends BaseRepository
         parent::__construct($student);
     }
 
-    public function findByEmail($email)
+    public function getAll(string $search = '')
     {
-        return $this->model->where(['email' => $email])->first();
+        return $this->student
+            ->with(['training', 'diet'])
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->paginate(limit_pagination());
+    }
+
+    public function getSummary()
+    {
+        return [
+            'total_students' => $this->student->count(),
+            'total_price' => $this->student->sum('price')
+        ];
+    }
+
+    public function getByEmail($email)
+    {
+        return $this->student->where(['email' => $email])->first();
     }
 
     public function updateWithoutScope(int $id, array $data)
     {
-        return $this->model->where(['id' => $id])->update($data);
+        return $this->student->where(['id' => $id])->update($data);
     }
 }

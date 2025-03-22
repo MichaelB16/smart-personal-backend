@@ -9,7 +9,7 @@ return [
     | The title of your API documentation.
     |
     */
-    "title" => env("SWAGGER_TITLE", "API IPersonal"),
+    "title" => env("SWAGGER_TITLE", "API SmartPersonal"),
 
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ return [
     | The description of your API.
     |
     */
-    "description" => env("SWAGGER_DESCRIPTION", "api ipersonal docs"),
+    "description" => env("SWAGGER_DESCRIPTION", "api SmartPersonal docs"),
 
     /*
     |--------------------------------------------------------------------------

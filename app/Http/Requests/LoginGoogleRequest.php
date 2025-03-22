@@ -24,7 +24,7 @@ class LoginGoogleRequest extends FormRequest
         return [
             'email' => 'required|email',
             'name' => 'required',
-            'sub' => 'required|string',
+            'sub' => 'required',
             'picture' => 'nullable|string',
             'google_access_token' => 'nullable|string',
         ];

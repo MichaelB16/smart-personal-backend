@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Repositories\UserRepository;
+use App\Contracts\Repositories\UserRepositoryInterface;
 
 class UserService
 {
-    public function __construct(protected UserRepository $userRepository, protected User $user) {}
+    public function __construct(protected UserRepositoryInterface $userRepository) {}
 
     public function find($id)
     {
@@ -38,21 +37,18 @@ class UserService
             [
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'is_google' => $data['is_google'],
-                'google_access_token' => $data['google_access_token'],
-                'picture' => $data['picture'],
-                'sub' => $data['sub'],
+                'is_google' => $data['is_google']
             ]
         );
     }
 
     public function getBySub($sub)
     {
-        return $this->user->where(['sub' => $sub])->first();
+        return $this->userRepository->getBySub($sub);
     }
 
     public function getByEmail($email)
     {
-        return $this->user->where(['email' => $email])->first();
+        return $this->userRepository->getByEmail($email);
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
-use App\Models\Student;
-use App\Models\User;
+use App\Contracts\BaseRepositoryInterface;
+use App\Contracts\Repositories\StudentRepositoryInterface;
+use App\Contracts\Repositories\TrainingRepositoryInterface;
+use App\Contracts\Repositories\UserGoogleRepositoryInterface;
+use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\BaseRepository;
-use App\Repositories\Contracts\BaseRepositoryInterface;
 use App\Repositories\StudentRepository;
+use App\Repositories\TrainingRepository;
+use App\Repositories\UserGoogleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -19,8 +23,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);
-        $this->app->bind(StudentRepository::class, fn() => new StudentRepository(new Student()));
-        $this->app->bind(UserRepository::class, fn() => new UserRepository(new User()));
+        $this->app->bind(StudentRepositoryInterface::class, StudentRepository::class);
+        $this->app->bind(TrainingRepositoryInterface::class, TrainingRepository::class);
+        $this->app->bind(UserGoogleRepositoryInterface::class, UserGoogleRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
@@ -28,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if(env('APP_ENV') !== 'local') {
+        if (env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
         }
     }

@@ -2,22 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\Training;
+use App\Contracts\Repositories\TrainingRepositoryInterface;
 
 class TrainingService
 {
-    public function __construct(protected Training $training,  protected GeminiAiService $geminiAiService) {}
+    public function __construct(
+        protected TrainingRepositoryInterface $repository,
+        protected GeminiAiService $geminiAiService
+    ) {}
 
     public function getTraining(int $id)
     {
-        return $this->training
-            ->join('students', function ($query) {
-                $query->on('students.id', '=', 'training.student_id');
-            })
-            ->with(['user'])
-            ->where(['student_id' => $id])
-            ->select('training.*', 'students.name as student_name')
-            ->first();
+        return $this->repository->findTraining($id);
     }
 
     public function generateTraining(array $data)
@@ -31,15 +27,6 @@ class TrainingService
 
     public function createTraining(array $data)
     {
-        return $this->training->updateOrCreate(
-            [
-                'student_id' => $data['student_id']
-            ],
-            [
-                'training' => $data['training'],
-                'student_id' => $data['student_id'],
-                'user_id' => get_user_id(),
-            ]
-        );
+        return $this->repository->updateOrCreate($data);
     }
 }
