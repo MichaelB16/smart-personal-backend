@@ -24,6 +24,14 @@ if (!function_exists('get_uuid')) {
     }
 }
 
+if (!function_exists('get_is_personal')) {
+    function get_is_personal()
+    {
+        return optional(auth('sanctum')->user())->type === 'personal';
+    }
+}
+
+
 if (!function_exists('uploadFile')) {
     function uploadFile($file, $filename = '')
     {

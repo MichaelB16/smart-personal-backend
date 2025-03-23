@@ -2,34 +2,24 @@
 
 namespace App\Services;
 
-use App\Models\NewPassword;
-
-
+use App\Contracts\Repositories\NewPasswordRepositoryInterface;
 
 class NewPasswordService
 {
-    public function __construct(protected NewPassword $newPassword) {}
+    public function __construct(protected NewPasswordRepositoryInterface $repository) {}
 
     public function create(array $data)
     {
-        return $this->newPassword->create([
-            ...$data,
-            'token' => get_uuid()
-        ]);
+        return $this->repository->create($data);
     }
 
     public function checkToken(string $token)
     {
-        return $this->newPassword
-            ->where(['token' => $token])
-            ->with(['user', 'student'])
-            ->first();
+        return $this->repository->checkToken($token);
     }
 
     public function deleteToken($user_id)
     {
-        return $this->newPassword
-            ->where(['user_id' => $user_id])
-            ->delete();
+        return $this->repository->delete($user_id);
     }
 }

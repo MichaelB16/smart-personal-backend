@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    public function __construct(private SettingService $settingService) {}
+    public function __construct(protected SettingService $settingService) {}
 
     public function index()
     {

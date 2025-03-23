@@ -3,11 +3,17 @@
 namespace App\Providers;
 
 use App\Contracts\BaseRepositoryInterface;
+use App\Contracts\Repositories\ForgotRepositoryInterface;
+use App\Contracts\Repositories\NewPasswordRepositoryInterface;
+use App\Contracts\Repositories\SettingRepositoryInterface;
 use App\Contracts\Repositories\StudentRepositoryInterface;
 use App\Contracts\Repositories\TrainingRepositoryInterface;
 use App\Contracts\Repositories\UserGoogleRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\BaseRepository;
+use App\Repositories\ForgotRepository;
+use App\Repositories\NewPasswordRepository;
+use App\Repositories\SettingRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TrainingRepository;
 use App\Repositories\UserGoogleRepository;
@@ -27,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TrainingRepositoryInterface::class, TrainingRepository::class);
         $this->app->bind(UserGoogleRepositoryInterface::class, UserGoogleRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(ForgotRepositoryInterface::class, ForgotRepository::class);
+        $this->app->bind(NewPasswordRepositoryInterface::class, NewPasswordRepository::class);
+        $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
     }
 
     /**
