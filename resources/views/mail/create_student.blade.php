@@ -68,9 +68,8 @@
         }
 
         .footer {
-            display: flex;
-            justify-content: center;
-            margin-top: 44px;
+            margin-top: 55px;
+            text-align: center;
         }
 
         .btn {
@@ -108,7 +107,7 @@
                         src="{{ asset('img/banner-welcome.png') }}" />
                 </div>
                 <div class="px-24 footer">
-                    <a class="btn" href="{{ $url }}">Criar sua senha</a>
+                    <a class="btn" style="color:#fff;" href="{{ $url }}">Criar sua senha</a>
                 </div>
             </div>
         </div>
