@@ -3,11 +3,13 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\StudentRepositoryInterface;
+use App\Models\Diet;
 use App\Models\Student;
+use App\Models\Training;
 
 class StudentRepository extends BaseRepository implements StudentRepositoryInterface
 {
-    public function __construct(protected Student $student)
+    public function __construct(protected Student $student, protected Training $training, protected Diet $diet)
     {
         if (get_user_id()) {
             $student = $student->byUser()->first() ?? $student;
@@ -30,6 +32,8 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     {
         return [
             'total_students' => $this->student->count(),
+            'total_trainings' => $this->training->count(),
+            'total_diets' => $this->diet->count(),
             'total_price' => $this->student->sum('price')
         ];
     }
