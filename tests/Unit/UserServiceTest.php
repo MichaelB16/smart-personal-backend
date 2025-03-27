@@ -9,11 +9,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Faker;
 use Mockery;
+use Tests\Traits\CreateUserTestHelper;
 
 class UserServiceTest extends TestCase
 {
     use RefreshDatabase;
-
+    use CreateUserTestHelper;
     protected $service;
     protected $repository;
     protected $faker;
@@ -61,31 +62,27 @@ class UserServiceTest extends TestCase
 
     public function test_update_user(): void
     {
-        $user = new User([
-            'id' => 1,
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
-            'type' => 'personal',
-            'password' => bcrypt('123456'),
-        ]);
+        $user = $this->executeCreateUser();
 
         $data = [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
         ];
+
+        $id = 1;
+
         $this->repository
             ->shouldReceive('update')
             ->once()
-            ->with(1, Mockery::on(function ($user) use ($data) {
+            ->with($id, Mockery::on(function ($user) use ($data) {
                 return $user['name'] === $data['name'] &&
                     $user['email'] === $data['email'] &&
                     $user['phone'] === $data['phone'];
             }))
             ->andReturn(new User(array_merge(['id' => 1], $data)));
 
-        $result = $this->service->update(1, $data);
+        $result = $this->service->update($id, $data);
 
         $this->assertEquals($data['name'], $result->name);
         $this->assertEquals($data['email'], $result->email);
@@ -94,14 +91,7 @@ class UserServiceTest extends TestCase
 
     public function test_delete_user(): void
     {
-        $user = new User([
-            'id' => 1,
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
-            'type' => 'personal',
-            'password' => bcrypt('123456'),
-        ]);
+        $this->executeCreateUser();
 
         $this->repository
             ->shouldReceive('delete')
@@ -114,16 +104,28 @@ class UserServiceTest extends TestCase
         $this->assertTrue($result);
     }
 
+    public function test_find_user(): void
+    {
+        $user = $this->executeCreateUser();
+
+        $this->repository
+            ->shouldReceive('find')
+            ->once()
+            ->with(1)
+            ->andReturn($user);
+
+        $result = $this->service->find(1);
+
+        $this->assertEquals($user->id, $result->id);
+        $this->assertEquals($user->name, $result->name);
+        $this->assertEquals($user->email, $result->email);
+        $this->assertEquals($user->phone, $result->phone);
+        $this->assertEquals($user->type, $result->type);
+    }
+
     public function test_get_by_email(): void
     {
-        $user = new User([
-            'id' => 1,
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
-            'type' => 'personal',
-            'password' => bcrypt('123456'),
-        ]);
+        $user = $this->executeCreateUser();
 
         $this->repository
             ->shouldReceive('getByEmail')
