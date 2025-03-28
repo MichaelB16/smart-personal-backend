@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,6 +34,19 @@ class Student extends Authenticatable
     public function diet()
     {
         return $this->hasOne(Diet::class, 'student_id', 'id')->select(['diet', 'student_id']);
+    }
+
+    public function evaluations_months()
+    {
+        return $this->hasMany(Evaluation::class, 'student_id', 'id')
+            ->whereDate('created_at', '<', Carbon::now()->startOfMonth());
+    }
+
+    public function evaluations_actual()
+    {
+        return $this->hasOne(Evaluation::class, 'student_id', 'id')
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year);
     }
 
     public function scopeByUser($query)

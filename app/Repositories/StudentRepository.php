@@ -21,7 +21,12 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     public function getAll(string $search = '')
     {
         return $this->student
-            ->with(['training', 'diet'])
+            ->with([
+                'training',
+                'diet',
+                'evaluations_actual',
+                'evaluations_months'
+            ])
             ->where(function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })

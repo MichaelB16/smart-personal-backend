@@ -41,7 +41,7 @@ class TrainingController extends Controller
 
         $data = $this->trainingService->generateTraining($data);
 
-        return response()->json($data);
+        return response()->json($data, 200);
     }
 
     public function saveTraining(TrainingRequest $request)
@@ -53,6 +53,6 @@ class TrainingController extends Controller
         return response()->json([
             'message' => 'Training save successfully',
             'data' => $training
-        ]);
+        ], 201);
     }
 }

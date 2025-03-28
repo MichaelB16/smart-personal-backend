@@ -29,7 +29,7 @@ class StudentsController extends Controller
         return response()->json([
             'message' => 'Student created successfully.',
             'data' => $result
-        ]);
+        ], 201);
     }
 
 
@@ -49,7 +49,7 @@ class StudentsController extends Controller
         return response()->json([
             'message' => 'Student updated successfully.',
             'data' => $result
-        ]);
+        ], 200);
     }
 
     public function destroy(int $id): JsonResponse

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardStudentController;
 use App\Http\Controllers\DietController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\NewPasswordController;
@@ -48,6 +49,8 @@ Route::prefix('v1')->group(function () {
             Route::post('generate', [DietController::class, 'generateDiet']);
             Route::post('save', [DietController::class, 'saveDiet']);
         });
+
+        Route::apiResource('evaluations', EvaluationController::class)->only(['store', 'update', 'destroy']);
 
         Route::apiResource('settings', SettingController::class)->only(['index', 'store']);
 

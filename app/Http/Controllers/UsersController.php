@@ -40,7 +40,7 @@ class UsersController extends Controller
         return response()->json([
             'message' => 'User created successfully.',
             'data' => $user
-        ]);
+        ], 201);
     }
 
     public function show(string $id): JsonResponse

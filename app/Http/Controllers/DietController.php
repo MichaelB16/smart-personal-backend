@@ -45,6 +45,6 @@ class DietController extends Controller
         return response()->json([
             'message' => 'Training save successfully',
             'data' => $diet
-        ]);
+        ], 201);
     }
 }

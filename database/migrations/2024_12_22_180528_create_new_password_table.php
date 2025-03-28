@@ -25,12 +25,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('new_password');
-
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('new_password', function (Blueprint $table) {
             $table->dropForeign(['user_id', 'student_id']);
             $table->dropColumn('student_id');
             $table->dropColumn('user_id');
         });
+
+        Schema::dropIfExists('new_password');
     }
 };
