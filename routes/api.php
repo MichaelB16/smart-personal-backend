@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StudentEvaluationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -51,6 +52,8 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::apiResource('evaluations', EvaluationController::class)->only(['store', 'update', 'destroy']);
+
+        Route::apiResource('student/evaluations', StudentEvaluationController::class)->only(['index']);
 
         Route::apiResource('settings', SettingController::class)->only(['index', 'store']);
 

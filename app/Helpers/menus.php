@@ -44,6 +44,11 @@ if (!function_exists('get_menu_student')) {
                 'label' => 'Área do Aluno',
                 'icon' => 'mdi-speedometer',
                 'to' => $prefix . 'dashboard',
+            ],
+            [
+                'label' => 'Evolução',
+                'icon' => 'mdi-chart-line-variant',
+                'to' => $prefix . 'evaluation',
             ]
         ];
     }

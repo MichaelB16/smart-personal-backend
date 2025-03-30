@@ -17,6 +17,16 @@ if (!function_exists('get_user_id')) {
     }
 }
 
+if (!function_exists('get_user_id_scope')) {
+    function get_user_id_scope()
+    {
+        if (auth('sanctum')->user()->type === 'personal')
+            return optional(auth('sanctum')->user())->id;
+        else
+            return optional(auth('sanctum')->user())->user_id;
+    }
+}
+
 if (!function_exists('get_uuid')) {
     function get_uuid()
     {

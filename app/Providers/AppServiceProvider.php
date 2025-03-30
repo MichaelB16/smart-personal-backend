@@ -7,6 +7,7 @@ use App\Contracts\Repositories\EvaluationRepositoryInterface;
 use App\Contracts\Repositories\ForgotRepositoryInterface;
 use App\Contracts\Repositories\NewPasswordRepositoryInterface;
 use App\Contracts\Repositories\SettingRepositoryInterface;
+use App\Contracts\Repositories\StudentEvaluationRepositoryInterface;
 use App\Contracts\Repositories\StudentRepositoryInterface;
 use App\Contracts\Repositories\TrainingRepositoryInterface;
 use App\Contracts\Repositories\UserGoogleRepositoryInterface;
@@ -16,6 +17,7 @@ use App\Repositories\EvaluationRepository;
 use App\Repositories\ForgotRepository;
 use App\Repositories\NewPasswordRepository;
 use App\Repositories\SettingRepository;
+use App\Repositories\StudentEvaluationRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TrainingRepository;
 use App\Repositories\UserGoogleRepository;
@@ -39,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(NewPasswordRepositoryInterface::class, NewPasswordRepository::class);
         $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
         $this->app->bind(EvaluationRepositoryInterface::class, EvaluationRepository::class);
+        $this->app->bind(StudentEvaluationRepositoryInterface::class, StudentEvaluationRepository::class);
     }
 
     /**

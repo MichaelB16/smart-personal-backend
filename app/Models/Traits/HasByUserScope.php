@@ -10,7 +10,7 @@ trait HasByUserScope
     {
         static::addGlobalScope(new ByUserScope);
         static::creating(function ($model) {
-            $model->user_id = get_user_id();
+            $model->user_id = get_user_id_scope();
         });
     }
 
