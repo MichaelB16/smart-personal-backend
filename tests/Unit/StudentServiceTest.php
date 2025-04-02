@@ -6,15 +6,18 @@ use App\Contracts\Repositories\StudentRepositoryInterface;
 use App\Models\Student;
 use App\Services\Mails\SendEmailStudentCreatedService;
 use App\Services\StudentService;
+use CreateStudentTestHelper;
 use Mockery;
 use Tests\TestCase;
 use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Traits\CreateStudentTestHelper as TraitsCreateStudentTestHelper;
 use Tests\Traits\CreateUserTestHelper;
 
 class StudentServiceTest extends TestCase
 {
     use CreateUserTestHelper;
+    use TraitsCreateStudentTestHelper;
     use RefreshDatabase;
 
     protected $service;
@@ -78,6 +81,7 @@ class StudentServiceTest extends TestCase
     public function test_update_student(): void
     {
         $this->createStudent();
+
 
         $data = [
             'name' => $this->faker->name,
@@ -185,21 +189,7 @@ class StudentServiceTest extends TestCase
     protected function createStudent()
     {
         $user = $this->executeCreateUser();
-
-        return new Student([
-            'id' => 1,
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
-            'password' => '123456',
-            'type' => 'student',
-            'height' => 1.80,
-            'weight' => 80,
-            'price' => 100,
-            'date_of_birth' => $this->faker->date(),
-            'access' => 1,
-            'user_id' => $user->id,
-        ]);
+        return $this->executeCreateStudent((int) $user->id);
     }
 
     protected function tearDown(): void
