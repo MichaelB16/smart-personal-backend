@@ -24,6 +24,7 @@ RUN apk add --no-cache \
 # Copia o Composer da imagem oficial para o container
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+
 # Copia os arquivos do projeto para o container
 COPY . .
 
