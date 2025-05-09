@@ -17,14 +17,14 @@ class SendEmailStudentCreatedService implements SendEmailInterface
     public function send(array $data)
     {
         try {
-            $newPassword = $this->newPasswordService->create([
-                'student_id' => $data['student_id'],
-            ]);
+            $newPassword = $this->newPasswordService->create(['student_id' => $data['student_id']]);
+
+            $data['event'] = 'student_created';
+            $data['url'] = env('APP_URL_FRONT') . '/new/password/' . $newPassword->token;
 
             Http::post(env('WEBHOOK_PIPEDREAM_URL'), [
                 ...$data,
-                'event' => 'student_created',
-                'url' => env('APP_URL_FRONT') . '/new/password/' . $newPassword->token
+                'html' => view('mail.create_student', $data)->render()
             ]);
         } catch (Exception $e) {
             Log::error('ERROR SEND EMAIL CREATE STUDENT: ' . $e->getMessage());
