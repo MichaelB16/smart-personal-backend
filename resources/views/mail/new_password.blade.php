@@ -90,7 +90,7 @@
     <div class="card">
         <div class="card-header px-12">
             <img
-                src="{{ asset('img/logo.png') }}"
+                src="https://ipersonal-backend.onrender.com/img/logo.png"
                 alt="{{config('app.name')}}" />
         </div>
         <div class="card-content" style="height: 590px">
@@ -123,4 +123,5 @@
         </div>
     </div>
 </body>
+
 </html>

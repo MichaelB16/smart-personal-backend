@@ -90,7 +90,7 @@
     <div class="card">
         <div class="card-header px-12">
             <img
-                src="{{ asset('img/logo.png') }}"
+                src="https://ipersonal-backend.onrender.com/img/logo.png"
                 alt="{{config('app.name')}}" />
         </div>
         <div class="card-content" style="height: 540px">
@@ -106,7 +106,7 @@
                     <img
                         style="height: 100%; margin-top:8px; width: 100%;"
                         alt=banner
-                        src="{{ asset('img/banner-forgot.png') }}" />
+                        src="https://ipersonal-backend.onrender.com/img/banner-forgot.png" />
                 </div>
                 <div class="px-24" style="margin-top: 1em;">
                     <i style="font-size: 14px; line-height: 23px">
@@ -120,4 +120,5 @@
         </div>
     </div>
 </body>
+
 </html>
