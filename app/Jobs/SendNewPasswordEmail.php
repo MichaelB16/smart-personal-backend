@@ -7,6 +7,7 @@ use App\Services\NewPasswordService;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -32,10 +33,14 @@ class SendNewPasswordEmail implements ShouldQueue
                 'user_id' => $this->data['user_id']
             ]);
 
-            Mail::to($this->data['email'])->send(new SendUserNewPassowrd([
-                'url' => env('APP_URL_FRONT') . '/new/password/' . $new_password->token,
-                'username' => $this->data['username'],
-            ]));
+            $this->data['event'] = 'new_password';
+            $this->data['subject'] = 'Nova senha';
+            $this->data['url'] = env('APP_URL_FRONT') . '/new/password/' . $new_password->token;
+
+            Http::post(env('WEBHOOK_PIPEDREAM_URL'), [
+                ...$this->data,
+                'html' => view('mail.new_password', $this->data)->render()
+            ]);
         } catch (Exception $e) {
             Log::error('ERROR SEND NEW PASSWORD EMAIL: ' . $e->getMessage());
         }

@@ -34,6 +34,7 @@ class SendStudentCreatedEmail implements ShouldQueue
                 'student_id' => $this->data['student_id']
             ]);
 
+            $this->data['subject'] = 'Bem-vindo defina sua senha';
             $this->data['event'] = 'student_created';
             $this->data['url'] = env('APP_URL_FRONT') . '/new/password/' . $new_password->token;
 
