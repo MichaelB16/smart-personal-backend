@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendCreateStudent;
 use App\Services\NewPasswordService;
 use Exception;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class SendStudentCreatedEmail implements ShouldQueue
@@ -33,10 +34,13 @@ class SendStudentCreatedEmail implements ShouldQueue
                 'student_id' => $this->data['student_id']
             ]);
 
-            Mail::to($this->data['email'])->send(new SendCreateStudent([
-                'username' => $this->data['username'],
-                'url' => env('APP_URL_FRONT') . '/new/password/' . $new_password->token
-            ]));
+            $this->data['event'] = 'student_created';
+            $this->data['url'] = env('APP_URL_FRONT') . '/new/password/' . $new_password->token;
+
+            Http::post(env('WEBHOOK_PIPEDREAM_URL'), [
+                ...$this->data,
+                'html' => view('mail.create_student', $this->data)->render()
+            ]);
         } catch (Exception $e) {
             Log::error('ERROR SEND EMAIL CREATE STUDENT: ' . $e->getMessage());
         }
