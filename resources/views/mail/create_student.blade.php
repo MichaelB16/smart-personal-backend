@@ -87,7 +87,7 @@
     <div class="card">
         <div class="card-header px-12">
             <img
-                src="{{ asset('img/logo.png') }}"
+                src="https://ipersonal-backend.onrender.com/img/logo.png"
                 alt="{{config('app.name')}}" />
         </div>
         <div class="card-content" style="height: 550px">
@@ -104,7 +104,7 @@
                     <img
                         style="height: 100%; margin-top:8px; width: 100%;"
                         alt=banner
-                        src="{{ asset('img/banner-welcome.png') }}" />
+                        src="https://ipersonal-backend.onrender.com/img/banner-welcome.png" />
                 </div>
                 <div class="px-24 footer">
                     <a class="btn" style="color:#fff;" href="{{ $url }}">Criar sua senha</a>
