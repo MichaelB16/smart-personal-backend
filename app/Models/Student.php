@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasByUserScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Student extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasByUserScope;
 
     protected $table = 'students';
 

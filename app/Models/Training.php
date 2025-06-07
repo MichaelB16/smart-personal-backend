@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasByUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Training extends Model
 {
+    use HasByUserScope;
+
     protected $table = 'training';
 
     protected $fillable = [

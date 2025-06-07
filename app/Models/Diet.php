@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasByUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Diet extends Model
 {
+    use HasByUserScope;
+
     protected $table = 'diet';
 
     protected $fillable = [
