@@ -43,10 +43,11 @@
             width: 150px;
             background-color: #0f0a38;
             color: #fff;
-            padding: 16px;
+            padding: 15px;
             text-align: center;
             border-radius: 100px;
             text-decoration: none;
+            font-size: 20px;
         }
 
         .content-flex {
@@ -64,6 +65,10 @@
         <div class="content-flex">
             <b>API - </b>
             <img class="logo" src="{{ asset('img/logo.png') }}" alt="logo" />
+
+        </div>
+        <div class="content-flex">
+            <a href="/docs" class="btn">Docs</a>
         </div>
     </main>
 </body>
